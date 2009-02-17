@@ -28,9 +28,9 @@ class stConfig
 	//database settings
 	public static $dbDriver = 'mysql';
 	public static $dbHost = 'localhost';
-	public static $dbUser = 'root';
+	public static $dbUser = '';
 	public static $dbPass = '';
-	public static $dbDatabase = 'starfish';
+	public static $dbDatabase = '';
 		
 	//timezome settings
 	public static $timezone = 'TZ=US/Central';
@@ -42,7 +42,7 @@ class stConfig
 	
 	//filtering settings
 	public static $allowedTags = '';
-	public static $allorAttr = '';
+	public static $allowedAttr = '';
 	
 	//file settings
 	public static $maxFilesize = '985368';
@@ -52,7 +52,7 @@ class stConfig
 	public static $permissionTable = array('0'=>'visitor', '1'=>'member', '8'=>'moderator', '9'=>'admin');
 	
 	//hash configs
-	public static $salt = 'gmsCr3w2008-ph0tOD4Ta';
+	public static $salt = 'exampleSalt';
 	
 	//debug settings
 	public static $enableDebug = true;
