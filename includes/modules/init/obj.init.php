@@ -8,7 +8,6 @@ class init implements stStandardModule
 	public function initialize()
 	{
 		$this->storage = stController::getInstance();
-		echo $view;
 		echo 'hello world';	
 	}
 }
