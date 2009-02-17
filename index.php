@@ -5,9 +5,7 @@ require_once('includes/core.php');
 try {
     $controller = stController::getInstance();
     $controller->dispatch();
-    $dBug->o($controller);
 } catch (Exception $e) {
-    $dBug->o($controller);
     echo 'Caught exception: ',  $e->getMessage(), "\n";  
 }
 ?>
