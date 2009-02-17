@@ -91,16 +91,14 @@ class stController
 	public function dispatch()
 	{
 		if (!empty($this->module) && !empty($this->view))
-		{
-			
+		{			
 			$stLoad = stIncluder::getInstance();
 			require_once($stLoad->getMod($this->module));
 			$this->storage = new $this->module();
 			$this->storage->initialize();
 			$this->storage = null;
-			
 		} else {
-			die('CONTROLLER ERROR');	
+			throw new stFatalError('Invalid Controller Call');
 		}
 	}
 	
