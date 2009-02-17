@@ -32,7 +32,8 @@ class stFilepath
 	
 	private function initialize() 
 	{
-		$this->root = str_replace('includes/core/obj.filesystem.php', '', __FILE__);
+		$this->root = dirname(dirname(__FILE__));
+        $this->root = str_replace('includes', '', $this->root);
 		$this->admin = $this->root . '/admin';
 		$this->css = $this->root . '/css';
 		$this->includes = $this->root . '/includes';
