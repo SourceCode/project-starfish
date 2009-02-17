@@ -32,7 +32,7 @@ class stFilepath
 	
 	private function initialize() 
 	{
-		$this->root = $_SERVER['DOCUMENT_ROOT'];
+		$this->root = str_replace('includes/core/obj.filesystem.php', '', __FILE__);
 		$this->admin = $this->root . '/admin';
 		$this->css = $this->root . '/css';
 		$this->includes = $this->root . '/includes';
