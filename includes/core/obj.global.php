@@ -22,17 +22,17 @@ class stGlobal
 	private static $instance;
 	
 	//global settings
-	public $post = '';
-	public $get = '';
+	public $post = array('module'=>'', 'view'=>''); 
+	public $get = array('module'=>'', 'view'=>''); 
 	public $files = '';
-	public $request = '';
+	public $request = array('module'=>'', 'view'=>'');
 			
 	private function initialize()
-	{
-		$this->post = $_POST;
-		$this->get = $_GET;
-		$this->files = $_FILES;
-		$this->request = $_REQUEST;
+	{       
+		if (isset($_POST)) $this->setValue($_POST, $this->post);  
+		if (isset($_GET)) $this->setValue($_GET, $this->get);  
+		if (isset($_FILES)) $this->setValue($_FILES, $this->files); 
+		if (isset($_REQUEST)) $this->setValue($_REQUEST, $this->request);
 	}
 	
 	public function getInstance()
@@ -45,7 +45,20 @@ class stGlobal
 		}
 		return self::$instance;
 	}
-	
+    
+    private function setValue($array, &$reference)
+    {
+        if (isset($array) && is_array($array))
+        {
+          foreach($array as $key=>$data)
+          {
+              $reference[$key] = $data;
+          }  
+        } else {
+            $reference = '';
+        }
+    }
+    
 }
 
 ?>

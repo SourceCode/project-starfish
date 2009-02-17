@@ -51,43 +51,45 @@ class stController
 	
 	private function setState()
 	{
-        
-		if (count($this->storage->post) > 0)
+        global $dBug;
+		if (count($this->storage->post) > 0 && strlen($this->storage->post['module']) > 0)
 		{
-			if (is_string($this->storage->post['module']))
-			{
-				$this->module = $this->storage->post['module'];
-				$this->state['module'] = $this->module;
-				unset($this->storage->post['module']);
-			}  
-			
-			if (is_string($this->storage->post['view']))
-			{
-				$this->view = $this->storage->post['view'];
-				$this->state['view'] = $this->view;
-				unset($this->storage->post['module']);
-			}
-			$this->state['data'] = $this->storage->post;
+		    $this->module = $this->storage->post['module'];
+		    $this->state['module'] = $this->module;
+            if (strlen($this->storage->post['view']) > 0)
+            {
+                $this->view = $this->storage->post['view'];
+                $this->state['view'] = $this->view;
+            } else {
+                $this->setDefaultState('view');
+            }
+            unset($this->storage->post['module']);
+            unset($this->storage->post['view']);                               			
+             
+			if (count($this->storage->post) > 0) $this->state['data'] = $this->storage->post;
 		} elseif (count($this->storage->get) > 0) 
 		{
-			if (is_string($this->storage->get['module']))
+			if (is_string($this->storage->get['module']) && strlen($this->storage->get['module']) > 0)
 			{
 				$this->module = $this->storage->get['module'];
-				$this->state['module'] = $this->module;
-				unset($this->storage->get['module']);
-			}
-			
-			if (is_string($this->storage->get['view']))
-			{
-				$this->view = $this->storage->get['view'];
-				$this->state['view'] = $this->view;
-				unset($this->storage->get['view']);
-			}
-			$this->state['data'] = $this->storage->get;
+				$this->state['module'] = $this->module;				
+                if (strlen($this->storage->get['view']) >0)
+                {
+                    $this->view = $this->storage->get['view'];
+                    $this->state['view'] = $this->view;               
+                } else {
+                    $this->setDefaultState('view');
+                } 
+			} else {
+                  $this->setDefaultState();
+            }           
+            unset($this->storage->get['module']);  
+            unset($this->storage->get['view']);	
+            	
+			if (count($this->storage->get) > 0) $this->state['data'] = $this->storage->get;
 		}
-
         
-		$this->storage = null;
+		$this->storage = '';
 	}
 	
 	public function dispatch()
@@ -99,11 +101,25 @@ class stController
 			$this->storage = new $this->module();
 			$this->storage->initialize();
 			$this->storage = null;
-		} else {
+		} else {        
 			throw new stFatalError('Invalid Controller Call');
 		}
 	}
 	
+    private function setDefaultState($type='')
+    {
+        if ($type=='view')
+        {
+            $this->view = 'init';
+            $this->state['view'] = 'init';
+        } else{
+            $this->setDefaultState('view');
+            $this->module = 'init';
+            $this->state['module'] = 'init';
+        }
+        return true;
+    }
+
 }
 
 ?>
