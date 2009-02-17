@@ -8,7 +8,6 @@ class testmodule1 implements stStandardModule
 	public function initialize()
 	{
 		$this->storage = stController::getInstance();
-		echo $view;
 		echo 'Test Module 1';
 		$this->dumpTestData();
 	}
