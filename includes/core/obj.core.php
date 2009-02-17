@@ -19,7 +19,7 @@ class stCore
 {
 	public function __construct() 
 	{
-		error_reporting(E_ERROR); //set error reporting
+		error_reporting(E_ALL); //set error reporting
 		putenv(stConfig::$timezone); //set application timezone
 	}
 }

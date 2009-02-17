@@ -64,10 +64,10 @@ $controller = stController::getInstance();
 /*-------------------------------------------------------------
  Enviornment Controlled Objects
 -------------------------------------------------------------*/
-
+$stFile = stFilepath::getInstance();
 if (file_exists($stFile->includes . '/core-ext.php')) //extends core functionality
 {
 	require_once($stFile->includes . '/core-ext.php');
 }
-
+unset($stFile);
 ?>

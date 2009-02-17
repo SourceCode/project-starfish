@@ -51,6 +51,7 @@ class stController
 	
 	private function setState()
 	{
+        
 		if (count($this->storage->post) > 0)
 		{
 			if (is_string($this->storage->post['module']))
@@ -58,7 +59,7 @@ class stController
 				$this->module = $this->storage->post['module'];
 				$this->state['module'] = $this->module;
 				unset($this->storage->post['module']);
-			}
+			}  
 			
 			if (is_string($this->storage->post['view']))
 			{
@@ -84,7 +85,8 @@ class stController
 			}
 			$this->state['data'] = $this->storage->get;
 		}
-		
+
+        
 		$this->storage = null;
 	}
 	
