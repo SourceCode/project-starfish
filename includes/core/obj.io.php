@@ -259,14 +259,14 @@ class stLogFile
         return self::$instance;
     }
 
-    public function systemLog($message)
+    public function sysLog($message)
     {
       if (!empty($message))
       {
           $logFile = 'core-log-' . date('Y-m-d') . '.log';
           $stIO = stIO::getInstance();
           $stFilepath = stFilepath::getInstance();
-          $logMessage = date('Y-m-d G:i:s') . ' ' . $message . "\r\n"; 
+          $logMessage = date('G:i:s') . ' ' . $message . "\r\n"; 
           if (!file_exists($stFilepath->logs . '/' . $logFile))
           { 
             echo 'no file exists ' . $stFilepath->logs . '/' . $logFile;          
