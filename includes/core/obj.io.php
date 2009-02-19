@@ -268,8 +268,7 @@ class stLogFile
           $stFilepath = stFilepath::getInstance();
           $logMessage = date('G:i:s') . ' ' . $message . "\r\n"; 
           if (!file_exists($stFilepath->logs . '/' . $logFile))
-          { 
-            echo 'no file exists ' . $stFilepath->logs . '/' . $logFile;          
+          {          
             $wResult = $stIO->newFile($logFile, $stFilepath->logs); 
             if ($wResult === false) return false;  
           } 
