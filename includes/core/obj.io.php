@@ -16,6 +16,24 @@
  */
 
 class stIO {
+    
+    private static $instance; 
+    
+     public function initialize()
+    {
+
+    }
+    
+    public function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $class = __CLASS__;
+            self::$instance = new $class();
+            self::$instance->initialize();
+        }
+        return self::$instance;
+    }
 	
 	public function sanitizeFilename($filename)
 	{
@@ -213,6 +231,46 @@ class stIO {
 		} 
 	}
 	
+}
+
+/**
+ * @access public
+ * @var object log controls
+ * @category objects
+ */
+
+class stLogFile
+{
+       
+     private static $instance; 
+    
+     public function initialize()
+    {
+
+    }
+    
+    public function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $class = __CLASS__;
+            self::$instance = new $class();
+            self::$instance->initialize();
+        }
+        return self::$instance;
+    }
+    
+    public function systemLog($message)
+    {
+      if (!empty($message))
+      {
+          
+      } else {
+          return false;
+      }  
+    }
+
+
 }
 
 ?>

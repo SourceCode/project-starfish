@@ -29,6 +29,7 @@ class stFilepath
 	public $lib;
 	public $images;
 	public $media;
+    public $logs;  
 	
 	private function initialize() 
 	{
@@ -44,6 +45,7 @@ class stFilepath
 		$this->content = $this->media . '/content';
 		$this->modules = $this->root . '/includes/modules';
 		$this->templates = $this->root . '/includes/templates';
+        $this->logs = $this->root . '/includes/logs';   
 	}
 	
 	public function getInstance()
@@ -81,6 +83,7 @@ class stWebpath
 	public $media;
 	public $modules;
 	public $templates;
+    public $logs;
 	
 	public function initialize() 
 	{
@@ -95,6 +98,7 @@ class stWebpath
 		$this->content = $this->media . '/content';
 		$this->modules = $this->root . '/includes/modules';
 		$this->templates = $this->root . '/includes/templates';
+        $this->logs = $this->root . '/includes/logs';  
 	}
 	
 	public function getInstance()

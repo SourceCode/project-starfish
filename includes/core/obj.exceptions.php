@@ -11,6 +11,22 @@
  
 /**
  * @access public
+ * @var object base exception handler
+ * @category objects
+ */
+ 
+class stExceptionHandler {
+    
+    public function handleException($exception)
+    {
+        global $dBug;
+        $dBug->o($exception);
+    }
+    
+} 
+ 
+/**
+ * @access public
  * @var object general exception handler
  * @category objects
  */
@@ -71,32 +87,6 @@ class stPermissionError extends stException
 
 }
 
-/**
- * @access public
- * @var object base exception handler
- * @category objects
- */
- 
-class stBasicError {
-	
-	public $errorData;
-	
-	public function newError($errorMessage)
-	{
-		$this->errorData[] = $errorMessage;
-		return true;
-	}
-	
-	public function makeErrorList()
-	{
-		if (is_array($this->errorData)) {
-			return implode('<br />', $this->errorData);
-		} else {
-			return false;
-		}
-	
-	}
-	
-}
+
 
 ?>

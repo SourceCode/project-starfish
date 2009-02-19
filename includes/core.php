@@ -23,28 +23,34 @@ function __autoload($class_name)
 require_once('config.php');
 require_once('environment.php');
 
-//instantiate exceptions vectors
-require_once('core/obj.exceptions.php');
-
-//boot core
-require_once('core/obj.core.php');
-$stCore = new stCore();
-
-//enable debugger
-if (stConfig::$enableDebug === true) {
-	require_once('core/obj.debug.php');
-	$dBug = new debug();
-}
-
-//load module handler
-require_once('core/obj.modules.php');
-
 //instantiate filesystem vector
 require_once('core/obj.filesystem.php');
 
 //instantiate include handler
 require_once('core/obj.includer.php');
 $stLoad = stIncluder::getInstance();
+
+//load io handler
+require_once($stLoad->get('io', 'core'));
+
+//instantiate exceptions vectors
+require_once($stLoad->get('exceptions', 'core')); 
+
+//set exception handler
+set_exception_handler(array('stExceptionHandler', 'handleException'));
+
+//boot core object
+require_once($stLoad->get('core', 'core')); 
+$stCore = new stCore();
+
+//enable debugger
+if (stConfig::$enableDebug === true) {
+	require_once($stLoad->get('debug', 'core')); 
+	$dBug = new debug();
+}
+
+//load module handler
+require_once('core/obj.modules.php');
 
 /*-------------------------------------------------------------
  Includer required from this point forward

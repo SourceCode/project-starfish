@@ -112,7 +112,7 @@ class stController
         {
             $this->view = 'init';
             $this->state['view'] = 'init';
-        } else{
+        } else {
             $this->setDefaultState('view');
             $this->module = 'init';
             $this->state['module'] = 'init';
