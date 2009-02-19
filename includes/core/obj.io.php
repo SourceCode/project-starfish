@@ -264,7 +264,17 @@ class stLogFile
     {
       if (!empty($message))
       {
-          
+          $logFile = 'core-log-' . date('Y-m-d') . '.log';
+          $stIO = stIO::getInstance();
+          $stFilepath = stFilepath::getInstance();
+          $logMessage = date('Y-m-d G:i:s') . ' ' . $message . "\r\n"; 
+          if (!file_exists($stFilepath->logs . '/' . $logFile))
+          { 
+            echo 'no file exists ' . $stFilepath->logs . '/' . $logFile;          
+            $wResult = $stIO->newFile($logFile, $stFilepath->logs); 
+            if ($wResult === false) return false;  
+          } 
+           return $stIO->appendFile($stFilepath->logs . '/' . $logFile, $logMessage);
       } else {
           return false;
       }  
