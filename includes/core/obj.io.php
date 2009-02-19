@@ -241,14 +241,13 @@ class stIO {
 
 class stLogFile
 {
-       
-     private static $instance; 
-    
-     public function initialize()
+    private static $instance; 
+
+    public function initialize()
     {
 
     }
-    
+
     public function getInstance()
     {
         if (!isset(self::$instance))
@@ -259,7 +258,7 @@ class stLogFile
         }
         return self::$instance;
     }
-    
+
     public function systemLog($message)
     {
       if (!empty($message))
