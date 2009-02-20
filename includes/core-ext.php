@@ -46,5 +46,3 @@ if (stEnv::$events === true)
 }
 
 $stLoad = null;
-
-?>

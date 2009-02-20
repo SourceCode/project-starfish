@@ -58,5 +58,3 @@ interface stACIDModule extends stStandardModule
 	public function update();
 	public function delete();
 }
-
-?>

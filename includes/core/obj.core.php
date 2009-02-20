@@ -23,5 +23,3 @@ class stCore
 		putenv(stConfig::$timezone); //set application timezone
 	}
 }
-
-?>

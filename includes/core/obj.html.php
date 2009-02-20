@@ -77,5 +77,3 @@ class stHtml extends stCore
 	}
 
 }
-
-?>

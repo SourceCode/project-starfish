@@ -280,5 +280,3 @@ class stLogFile
 
 
 }
-
-?>

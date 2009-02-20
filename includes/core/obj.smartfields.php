@@ -333,5 +333,3 @@ class stSmartFields extends stHtml {
 		}
 	}
 }
-
-?>

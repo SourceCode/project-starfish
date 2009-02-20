@@ -76,4 +76,3 @@ if (file_exists($stFile->includes . '/core-ext.php')) //extends core functionali
 	require_once($stFile->includes . '/core-ext.php');
 }
 unset($stFile);
-?>

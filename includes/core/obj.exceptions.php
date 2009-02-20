@@ -86,7 +86,3 @@ class stPermissionError extends stException
 	}
 
 }
-
-
-
-?>

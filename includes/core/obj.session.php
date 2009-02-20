@@ -335,4 +335,3 @@ class stAdminSession extends stSession
 	}
 
 }
-?>
