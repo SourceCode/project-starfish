@@ -18,9 +18,15 @@
 class stExceptionHandler {
     
     public function handleException($exception)
-    {
-        global $dBug;
-        $dBug->o($exception);
+    {  
+        stLogFile::addBufferBreakline();
+        stLogFile::addLogBuffer('EXCEPTION CAUGHT');
+        stLogFile::addLogBuffer('MSG: ' . $exception->getMessage());
+        stLogFile::addLogBuffer('CODE: ' . $exception->getCode());
+        stLogFile::addLogBuffer('FILE: ' . $exception->getFile());
+        stLogFile::addLogBuffer('LINE: ' . $exception->getLine());
+        stLogFile::addLogBuffer('TRACE: ' . $exception->getTraceAsString());
+        stLogFile::writeLogBuffer();      
     }
     
 } 

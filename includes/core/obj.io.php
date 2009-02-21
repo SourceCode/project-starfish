@@ -316,6 +316,11 @@ class stLogFile
         
     }
     
+    public function addBufferBreakline()
+    {
+       self::$buffer[] = '===================================================================='; 
+    }
+    
     public function clearLogBuffer()
     {
         self::$buffer = '';

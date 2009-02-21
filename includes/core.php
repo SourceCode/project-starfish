@@ -43,7 +43,6 @@ require_once($stLoad->get('exceptions', 'core'));
 //set exception handler
 set_exception_handler(array('stExceptionHandler', 'handleException'));
 
-
 //enable debugger
 if (stConfig::$enableDebug === true) {
 	require_once($stLoad->get('debug', 'core')); 
