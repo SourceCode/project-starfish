@@ -9,7 +9,6 @@ function testException($var)
     }
 }
 
-
 try {
     testException(50);  
 } catch(Exception $e) 
