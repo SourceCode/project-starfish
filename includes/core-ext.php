@@ -20,11 +20,6 @@ if (stEnv::$session === true)
 	require_once($stLoad->get('session', 'core'));
 }
 
-if (stEnv::$templates === true)
-{
-	require_once($stLoad->get('templates', 'core'));	
-}
-
 if (stEnv::$html === true)
 {
 	require_once($stLoad->get('html', 'core'));

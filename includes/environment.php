@@ -27,7 +27,6 @@ class stEnv
 	public static $html = true;
 	public static $library = true;
 	public static $events = true;
-	public static $templates = true;
     
     //PHP libraries
     public static $smarty = true;
