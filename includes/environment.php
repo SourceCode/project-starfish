@@ -29,6 +29,9 @@ class stEnv
 	public static $library = true;
 	public static $events = true;
 	public static $templates = true;
+    
+    //PHP libraries
+    public static $smarty = true;
 			
 	private function __construct()
     {	
