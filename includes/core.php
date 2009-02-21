@@ -23,6 +23,10 @@ function __autoload($class_name)
 require_once('config.php');
 require_once('environment.php');
 
+//boot core object
+require_once($stLoad->get('core', 'core')); 
+$stCore = new stCore();
+
 //instantiate filesystem vector
 require_once('core/obj.filesystem.php');
 
@@ -39,9 +43,6 @@ require_once($stLoad->get('exceptions', 'core'));
 //set exception handler
 set_exception_handler(array('stExceptionHandler', 'handleException'));
 
-//boot core object
-require_once($stLoad->get('core', 'core')); 
-$stCore = new stCore();
 
 //enable debugger
 if (stConfig::$enableDebug === true) {
