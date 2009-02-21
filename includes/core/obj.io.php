@@ -242,11 +242,8 @@ class stIO {
 class stLogFile
 {
     private static $instance; 
-
-    public function initialize()
-    {
-
-    }
+    
+    public $buffer;
 
     public function getInstance()
     {
@@ -254,16 +251,20 @@ class stLogFile
         {
             $class = __CLASS__;
             self::$instance = new $class();
-            self::$instance->initialize();
         }
         return self::$instance;
+    }
+    
+    public function sysLogFilename()
+    {
+        return $logFile = 'core-log-' . date('Y-m-d') . '.log'; 
     }
 
     public function sysLog($message)
     {
       if (!empty($message))
       {
-          $logFile = 'core-log-' . date('Y-m-d') . '.log';
+          $logFile = $this->sysLogFilename();
           $stIO = stIO::getInstance();
           $stFilepath = stFilepath::getInstance();
           $logMessage = date('G:i:s') . ' ' . $message . "\r\n"; 
@@ -277,6 +278,44 @@ class stLogFile
           return false;
       }  
     }
-
+    
+    public function addLogBuffer($message)
+    {
+        if (!empty($message))
+        {
+            $logMessage = date('G:i:s') . ' ' . $message . "\r\n"; 
+            $this->buffer[] = $logMessage;
+            return true;   
+        } else {
+            return false;
+        } 
+    }
+    
+    public function writeLogBuffer()
+    {
+        if (is_array($this->buffer))
+        {
+            $logFile = $this->sysLogFilename();
+            $stIO = stIO::getInstance();
+            $stFilepath = stFilepath::getInstance();
+            $logMessage = implode("\r\n", $this->buffer); 
+            if (!file_exists($stFilepath->logs . '/' . $logFile))
+            {          
+                $wResult = $stIO->newFile($logFile, $stFilepath->logs); 
+                 if ($wResult === false) return false;  
+            } 
+            $this->clearLogBuffer();
+            return $stIO->appendFile($stFilepath->logs . '/' . $logFile, $logMessage);
+        } else {
+            return false;
+        }
+        
+    }
+    
+    public function clearLogBuffer()
+    {
+        $this->buffer = '';
+        return true;
+    }
 
 }
