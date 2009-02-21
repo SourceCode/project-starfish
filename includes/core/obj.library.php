@@ -69,34 +69,6 @@ abstract class stLibrary extends stHtml
  * @category objects
  */
 
-class stSmarty extends stLibrary
-{
-    private static $instance;
-    
-    private function __construct()
-    {    
-        //singleton pattern
-    }
-    
-    public function getInstance()
-    {
-        if (!isset(self::$instance))
-        {
-            $stFilepath = stFilepath::getInstance();
-            require_once($stFilepath->lib . '/Smarty-2.6.22/libs/Smarty.class.php');
-            self::$instance = new Smarty();
-        }
-        return self::$instance;
-    }   
-    
-}
-
-/**
- * @access public
- * @var object library files dependency controller
- * @category objects
- */
-
 class stYUI extends stLibrary {
 
 	private $dependencyList;

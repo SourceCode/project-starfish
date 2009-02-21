@@ -23,7 +23,6 @@ class stEnv
 	
 	//enviorment settings for core modules
 	public static $mysql = true;
-	public static $logger = true;
 	public static $session = true;
 	public static $html = true;
 	public static $library = true;

@@ -44,9 +44,9 @@ class stIO {
 	{
 		if (!empty($file) && !empty($path)) {
 			if (is_dir($path)) {
-				$fh = fopen($file, 'w') or die("can't open file");
-				fwrite($fh, '');
-				fclose($fh);
+				$fh = fopen($path .  '/' . $file, 'w') or die("can't open file");
+				fwrite($file, '');
+				fclose($file);
 				return true;
 			} else {
 				return false;
@@ -243,7 +243,7 @@ class stLogFile
 {
     private static $instance; 
     
-    public $buffer;
+    private static $buffer;
 
     public function getInstance()
     {
@@ -264,14 +264,18 @@ class stLogFile
     {
       if (!empty($message))
       {
-          $logFile = $this->sysLogFilename();
+          $logFile = self::sysLogFilename();
           $stIO = stIO::getInstance();
           $stFilepath = stFilepath::getInstance();
           $logMessage = date('G:i:s') . ' ' . $message . "\r\n"; 
           if (!file_exists($stFilepath->logs . '/' . $logFile))
           {          
             $wResult = $stIO->newFile($logFile, $stFilepath->logs); 
-            if ($wResult === false) return false;  
+            if ($wResult === false)
+            {
+                echo 'log creation failure';
+                return false;  
+            } 
           } 
            return $stIO->appendFile($stFilepath->logs . '/' . $logFile, $logMessage);
       } else {
@@ -283,8 +287,8 @@ class stLogFile
     {
         if (!empty($message))
         {
-            $logMessage = date('G:i:s') . ' ' . $message . "\r\n"; 
-            $this->buffer[] = $logMessage;
+            $logMessage = date('G:i:s') . ' ' . $message; 
+            self::$buffer[] = $logMessage;
             return true;   
         } else {
             return false;
@@ -293,18 +297,18 @@ class stLogFile
     
     public function writeLogBuffer()
     {
-        if (is_array($this->buffer))
+        if (is_array(self::$buffer))
         {
-            $logFile = $this->sysLogFilename();
+            $logFile = self::sysLogFilename();
             $stIO = stIO::getInstance();
             $stFilepath = stFilepath::getInstance();
-            $logMessage = implode("\r\n", $this->buffer); 
+            $logMessage = implode("\r\n", self::$buffer) . "\r\n"; 
             if (!file_exists($stFilepath->logs . '/' . $logFile))
             {          
                 $wResult = $stIO->newFile($logFile, $stFilepath->logs); 
                  if ($wResult === false) return false;  
             } 
-            $this->clearLogBuffer();
+            self::clearLogBuffer();
             return $stIO->appendFile($stFilepath->logs . '/' . $logFile, $logMessage);
         } else {
             return false;
@@ -314,7 +318,7 @@ class stLogFile
     
     public function clearLogBuffer()
     {
-        $this->buffer = '';
+        self::$buffer = '';
         return true;
     }
 

@@ -24,7 +24,7 @@ require_once('config.php');
 require_once('environment.php');
 
 //boot core object
-require_once($stLoad->get('core', 'core')); 
+require_once('core/obj.core.php'); 
 $stCore = new stCore();
 
 //instantiate filesystem vector

@@ -15,11 +15,6 @@ if (stEnv::$mysql === true)
 	require_once($stLoad->get('mysql', 'core'));
 }
 
-if (stEnv::$logger === true)
-{
-	require_once($stLoad->getMod('logger', 'core'));
-}
-
 if (stEnv::$session === true)
 {
 	require_once($stLoad->get('session', 'core'));
@@ -43,6 +38,12 @@ if (stEnv::$library === true)
 if (stEnv::$events === true)
 {
 	require_once($stLoad->get('events', 'core'));	
+}
+
+if (stENv::$smarty === true)
+{
+    $stFilepath = stFilepath::getInstance();
+    require_once($stFilepath->lib . '/Smarty-2.6.22/libs/Smarty.class.php'); 
 }
 
 $stLoad = null;
