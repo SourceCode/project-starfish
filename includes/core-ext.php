@@ -35,10 +35,12 @@ if (stEnv::$events === true)
 	require_once($stLoad->get('events', 'core'));	
 }
 
-if (stENv::$smarty === true)
+if (stENv::$smarty === true && stEnv::$library === true)
 {
     $stFilepath = stFilepath::getInstance();
-    require_once($stFilepath->lib . '/Smarty-2.6.22/libs/Smarty.class.php'); 
+    require_once($stFilepath->lib . '/Smarty-2.6.22/libs/Smarty.class.php');
+    $smarty = new Smarty(); //do not unset, used as a reference not as a clone
+    $stSmarty = new stSmarty($smarty);   
 }
 
 $stLoad = null;

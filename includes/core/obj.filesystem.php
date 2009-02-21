@@ -29,6 +29,7 @@ class stFilepath
 	public $lib;
 	public $images;
 	public $media;
+    public $templates;
     public $logs;  
 	
 	private function initialize() 

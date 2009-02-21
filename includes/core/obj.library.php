@@ -68,6 +68,34 @@ abstract class stLibrary extends stHtml
  * @var object library files dependency controller
  * @category objects
  */
+ 
+ class stSmarty 
+ {
+    public static $instance;
+    
+    public function __construct(&$smartyInstance)
+    {
+        $stFilepath = stFilepath::getInstance();
+        $smartyInstance->template_dir = $stFilepath->templates . '/';
+        $smartyInstance->compile_dir  = $stFilepath->templates . '/smarty/templates_c/';
+        $smartyInstance->config_dir   = $stFilepath->templates . '/smarty/configs/';
+        $smartyInstance->cache_dir    = $stFilepath->templates . '/cache/';  
+        self::$instance = $smartyInstance;   
+    }
+    
+    public static function getInstance()
+    {
+        return self::$instance;    
+    }    
+ 
+ }
+
+
+/**
+ * @access public
+ * @var object library files dependency controller
+ * @category objects
+ */
 
 class stYUI extends stLibrary {
 

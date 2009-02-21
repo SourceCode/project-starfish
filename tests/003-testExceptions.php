@@ -5,7 +5,7 @@ function testException($var)
 {
     if ($var != 2)
     {
-     throw new stException('This is a test exception');   
+        throw new stException('This is a test exception');   
     }
 }
 
