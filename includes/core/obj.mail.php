@@ -17,20 +17,29 @@
 
 class stMail 
 {
-	function sendMail($toEmail, $fromEmail, $fromAddress, $subject, $content) 
+    private static $instance;
+    
+    public function initialize()
+    {
+        
+    }
+    
+    public function getInstance()
+    {
+        if (!isset(self::$instance))
+        {                  
+            $stFilepath = stFilepath::getInstance();
+            require_once($stFilepath->lib . '/' . );
+            self::$instance = new $class();
+            self::$instance->initialize();
+        }
+        return self::$instance;
+    }    
+ 
+	public static function sendMail($toEmail, $fromEmail, $fromAddress, $subject, $content) 
 	{
-		$message = '<html>
-			<head>
-				<title>' . $subject . '</title>
-			</head>
-			<body>' . nl2br($content) . '</body>
-		</html>';
-		$headers  = "MIME-Version: 1.0\r\n";
-		$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-		$headers .= "To: " . $toEmail . "\r\n";
-		$headers .= "From: " . $fromEmail . " <" . $fromAddress . ">\r\n";
-		mail($toEmail, $subject, $message, $headers);
-		return true;
+
+		
 	}
 
 }

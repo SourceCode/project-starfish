@@ -43,4 +43,9 @@ if (stENv::$smarty === true && stEnv::$library === true)
     $stSmarty = new stSmarty($smartyRef); //do not unset this instance of smarty   
 }
 
+if (stEnv::$mail === true)
+{
+    require_once($stLoad->get('mail', 'core')); 
+}
+
 $stLoad = null;
