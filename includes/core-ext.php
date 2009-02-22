@@ -39,8 +39,8 @@ if (stENv::$smarty === true && stEnv::$library === true)
 {
     $stFilepath = stFilepath::getInstance();
     require_once($stFilepath->lib . '/Smarty-2.6.22/libs/Smarty.class.php');
-    $smarty = new Smarty(); //do not unset, used as a reference not as a clone
-    $stSmarty = new stSmarty($smarty);   
+    $smartyRef = new Smarty(); //do not unset, used as a reference not as a clone
+    $stSmarty = new stSmarty($smartyRef); //do not unset this instance of smarty   
 }
 
 $stLoad = null;
