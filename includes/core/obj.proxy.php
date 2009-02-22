@@ -18,29 +18,42 @@
 class stProxy 
 {
 	
+    private static $instance;
+    
 	public $request;
 	public $result;
 	
 	private $handler;
 	private $outputBuffer;
 	private $timeout = 8;
+    
+    public function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $class = __CLASS__;
+            self::$instance = new $class();
+        }
+        return self::$instance;
+    }
+    
 	
-	public function __construct($requestURL) 
+	public static function setRequest($requestURL) 
 	{
 		if (!empty($requestURL)) {
-			$this->request = $requestURL;
+			self::$request = $requestURL;
 		} else {
 			return false;
 		}
 	}
 	
-	public function proxyExecute() 
+	public static function processTransaction() 
 	{
-		if (!empty($this->request)) {
-			$result = $this->retrieveRequest();
+		if (!empty(self::$request)) {
+			$result = self::getRequest();
 			if ($result === true) {
-				$this->result = $this->outputBuffer;
-				$this->outputBuffer='';
+				self::$result = self::$outputBuffer;
+				self::$outputBuffer='';
 				return true;
 			} else {
 				return false;
@@ -50,15 +63,15 @@ class stProxy
 		}
 	}
 	
-	private function retrieveRequest() 
+	private function getRequest() 
 	{
-		$this->handler = curl_init();
-		curl_setopt($this->handler,CURLOPT_URL, $this->request);
-		curl_setopt($this->handler,CURLOPT_CONNECTTIMEOUT,$this->timeout);
-		curl_setopt($this->handler,CURLOPT_RETURNTRANSFER,1);
-		$this->outputBuffer = curl_exec($this->handler);
-		curl_close($this->handler);
-		if (!empty($this->outputBuffer)) {
+		self::$handler = curl_init();
+		curl_setopt(self::$handler,CURLOPT_URL, self::$request);
+		curl_setopt(self::$handler,CURLOPT_CONNECTTIMEOUT,self::$timeout);
+		curl_setopt(self::$handler,CURLOPT_RETURNTRANSFER,1);
+		self::$outputBuffer = curl_exec(self::$handler);
+		curl_close(self::$handler);
+		if (!empty(self::$outputBuffer)) {
 			return true;
 		} else {
 			return false;
