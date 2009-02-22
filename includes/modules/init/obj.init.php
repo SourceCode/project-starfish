@@ -11,5 +11,3 @@ class init implements stStandardModule
 		echo 'hello world';	
 	}
 }
-
-?>

@@ -86,6 +86,17 @@ abstract class stLibrary extends stHtml
     public static function getInstance()
     {
         return self::$instance;    
+    }
+    
+    public static function setTemplatePath($path)
+    {
+        if (!empty($path))
+        {
+            self::$instance->template_dir = $path;
+            return true;
+        } else {
+            return false;  
+        }
     }    
  
  }

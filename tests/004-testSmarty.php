@@ -15,10 +15,7 @@
  */
 
 require_once('../includes/core.php');
+stSmarty::setTemplatePath($stFilepath->root . '/tests/content');
 $smarty = stSmarty::getInstance();
-
-//change the template dir. - 
-$smarty->template_dir = $stFilepath->root . '/tests/content'; 
-
 $smarty->assign('name', 'Starfish Smarty Test');
 $smarty->display('004-testSmarty.tpl');
