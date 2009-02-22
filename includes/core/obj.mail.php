@@ -19,27 +19,14 @@ class stMail
 {
     private static $instance;
     
-    public function initialize()
-    {
-        
-    }
-    
-    public function getInstance()
+    public static function getInstance()
     {
         if (!isset(self::$instance))
         {                  
             $stFilepath = stFilepath::getInstance();
-            require_once($stFilepath->lib . '/' . );
-            self::$instance = new $class();
-            self::$instance->initialize();
+            require_once($stFilepath->lib . '/htmlMimeMail5/' . 'htmlMimeMail5.php');
+            self::$instance = new htmlMimeMail5();
         }
         return self::$instance;
-    }    
- 
-	public static function sendMail($toEmail, $fromEmail, $fromAddress, $subject, $content) 
-	{
-
-		
-	}
-
+    }
 }
