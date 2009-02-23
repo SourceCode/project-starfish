@@ -18,14 +18,22 @@
 
 class stXML
 {
+    private static $instance;
 	
 	public $xmlURL;
 	public $xmlData;
-
-	public function __construct() {
-	}
+    
+    public function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $class = __CLASS__;
+            self::$instance = new $class();
+        }
+        return self::$instance;
+    }
 	
-	public function openXMLFile($xmlURL)
+	public static function openXMLFile($xmlURL)
 	{
 		if (!empty($xmlURL)) {
 			try {
@@ -40,7 +48,7 @@ class stXML
 		}
 	}
 	
-	public function parseXMLFile($xmlURL)
+	public static function parseXMLFile($xmlURL)
 	{
 		if (!empty($xmlURL)) {
 			try {
