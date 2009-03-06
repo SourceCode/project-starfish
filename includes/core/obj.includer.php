@@ -45,31 +45,22 @@ class stIncluder
 			switch($objType) 
 			{
 				default:
-						$path = $this->path->public . '/obj.';
+						throw new stFatalError('Failed to include class/resource: ' . $objName . ' (' . $objType . ') ');
 					break;
 				case 'core':
 						$path = $this->path->core . '/obj.';
-					break;
-				case 'public':
-						$path = $this->path->public . '/obj.';
-					break;
-				case 'private':
-						$path = $this->path->private . '/obj.';
 					break;
 				case 'lib':
 						$path = $this->path->lib . '/';
 					break;
 				case 'template':
 						$path = $this->path->template . '/';
-					break;	
-				case 'content':
-						$path = $this->path->content . '/';
-					break;						
+					break;					
 			}
 			
 			return $path . $objName . '.php';
 		} else {
-			die('Failed to include class/resource: ' . $objName . ' (' . $objType . ') ');
+			throw new stFatalError('Failed to include class/resource: ' . $objName . ' (' . $objType . ') ');
 		}
 	}
 	
