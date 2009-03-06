@@ -73,6 +73,8 @@ class stEventHandler
     
     private function eventTypeExist($type)
     {
+      if (isset($this->eventStorage[$type])) 
+      {
         if (is_array($this->eventStorage[$type]))
         {
             if (count($this->eventStorage[$type]) > 0)
@@ -83,7 +85,10 @@ class stEventHandler
             }
         } else {
             return false;
-        }  
+        }
+      } else {
+          return false;
+      }  
     }
     
 /**
@@ -131,7 +136,7 @@ class stEventHandler
     public function eventRegister($type, $arg, $objectCallback)
     {
         if ($this->eventExist($type, $objectCallback) === false && $this->is_validEvent($objectCallback) === true)
-        {
+        {   
             $seed = $this->newEventID();
             $this->eventStorage[$type][$seed] = $objectCallback;
             $this->argStorage[$type][$seed] = $arg;
@@ -163,16 +168,29 @@ class stEventHandler
     
     public function event($type, $arg)
     {
+        
+        global $dBug;
+        echo 'event ' . $type . '<br /><br />';
+        $dBug->p($arg);
+        
         if ($this->eventTypeExist($type) === true)
         {
             //event type exists
+            $eventResults = array();
             foreach($this->eventStorage[$type] as $key => $value) {
                 $eventArg = $this->argStorage[$type][$key];
-                if ($eventArg == $arg) {
-                    $validEvent = $this->eventStorage[$type][$key];
-                    $this->executeEvent($validEvent, $eventArg);   
+                if ($eventArg === $arg) {
+                    $validEvent = $this->eventStorage[$type][$key]; 
+                    $eventResults[] = $this->executeEvent($validEvent, $arg);   
                 }  
-            }   
+            } 
+            
+            if (is_array($eventResults))
+            {
+                return $eventResults;  
+            } else {
+                return false;    
+            }    
         } else {
             return false;   
         }    
@@ -184,16 +202,14 @@ class stEventHandler
  *
  */ 
      
-    private function executeEvent($ObjectCallback, $arg)
-    {
-      $class = $ObjectCallback[0];
-      $method = $ObjectCallback[1];
-      try {
-        $object = new $class();
-        return $object->$method($arg);  
+    private function executeEvent($objectCallback, $arg)
+    {  
+      try { 
+        $result = call_user_func($objectCallback, $arg); 
       } catch(Exception $e) {
         throw new stFatalError('Invalid Event Call for ' . $ObjectCallback[0] . '->' . $ObjectCallback[1] . ' with arguments ' . $arg);   
-      }          
+      } 
+      return $result;         
     }
 	
 }

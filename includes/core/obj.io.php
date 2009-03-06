@@ -46,7 +46,7 @@ class stIO {
 			if (is_dir($path)) {
 				$fh = fopen($path .  '/' . $file, 'w') or die("can't open file");
 				fwrite($file, '');
-				fclose($file);
+				@fclose($file);
 				return true;
 			} else {
 				return false;
