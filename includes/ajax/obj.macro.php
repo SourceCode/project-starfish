@@ -15,21 +15,11 @@
  * @category objects
  */
 
-class stAjaxMacro()
+class stAjaxMacro
 {
-	
-	private $post;
-	private $get;
-	private $files;
-	private $request;
 	
 	public function __construct()
 	{
-		global $stGlobal;
-		$this->post = $stGlobal->post;
-		$this->get = $stGlobal->get;
-		$this->files = $stGlobal->files;
-		$this->request = $stGlobal->request;
 		return true;
 	}
 	

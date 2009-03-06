@@ -26,11 +26,6 @@ class stAjax
 	
 	public function __construct()
 	{
-		global $stGlobal;
-		$this->post = $stGlobal->post;
-		$this->get = $stGlobal->get;
-		$this->files = $stGlobal->files;
-		$this->request = $stGlobal->request;
 		return true;
 	}
 

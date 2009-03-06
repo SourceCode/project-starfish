@@ -1,0 +1,49 @@
+====================================================================
+1:52:30 EXCEPTION CAUGHT
+1:52:30 MSG: This was a test of an unhandled exception
+1:52:30 CODE: 0
+1:52:30 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+1:52:30 LINE: 21
+1:52:30 TRACE: #0 {main}
+====================================================================
+1:52:31 EXCEPTION CAUGHT
+1:52:31 MSG: This was a test of an unhandled exception
+1:52:31 CODE: 0
+1:52:31 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+1:52:31 LINE: 21
+1:52:31 TRACE: #0 {main}
+====================================================================
+1:52:32 EXCEPTION CAUGHT
+1:52:32 MSG: This was a test of an unhandled exception
+1:52:32 CODE: 0
+1:52:32 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+1:52:32 LINE: 21
+1:52:32 TRACE: #0 {main}
+====================================================================
+1:55:57 EXCEPTION CAUGHT
+1:55:57 MSG: This was a test of an unhandled exception
+1:55:57 CODE: 0
+1:55:57 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+1:55:57 LINE: 21
+1:55:57 TRACE: #0 {main}
+====================================================================
+2:01:58 EXCEPTION CAUGHT
+2:01:58 MSG: This was a test of an unhandled exception
+2:01:58 CODE: 0
+2:01:58 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+2:01:58 LINE: 21
+2:01:58 TRACE: #0 {main}
+====================================================================
+2:02:26 EXCEPTION CAUGHT
+2:02:26 MSG: This was a test of an unhandled exception
+2:02:26 CODE: 0
+2:02:26 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+2:02:26 LINE: 20
+2:02:26 TRACE: #0 {main}
+====================================================================
+2:28:49 EXCEPTION CAUGHT
+2:28:49 MSG: This was a test of an unhandled exception
+2:28:49 CODE: 0
+2:28:49 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+2:28:49 LINE: 20
+2:28:49 TRACE: #0 {main}
