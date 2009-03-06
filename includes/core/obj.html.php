@@ -18,7 +18,20 @@
 
 class stHtml extends stCore 
 {
-
+    
+    private static $instance; 
+    
+    public function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $class = __CLASS__;
+            self::$instance = new $class();
+        }
+        return self::$instance;
+    }    
+    
+    
 	final public function stAttr($attrArray) 
 	{
 		if (is_array($attrArray)) {
