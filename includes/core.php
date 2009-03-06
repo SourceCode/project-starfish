@@ -49,6 +49,9 @@ if (stConfig::$enableDebug === true) {
 	$dBug = new debug();
 }
 
+//instantiate event controller
+require_once($stLoad->get('events', 'core'));
+
 //load module handler
 require_once('core/obj.modules.php');
 
@@ -64,7 +67,6 @@ require_once($stLoad->get('global', 'core'));
 
 //instantiate controller
 require_once($stLoad->get('controller', 'core'));
-
 $controller = stController::getInstance();
 
 /*-------------------------------------------------------------

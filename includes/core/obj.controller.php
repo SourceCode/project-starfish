@@ -51,7 +51,6 @@ class stController
 	
 	private function setState()
 	{
-        global $dBug;
 		if (count($this->storage->post) > 0 && strlen($this->storage->post['module']) > 0)
 		{
 		    $this->module = $this->storage->post['module'];

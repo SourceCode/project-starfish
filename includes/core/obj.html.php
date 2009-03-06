@@ -19,7 +19,7 @@
 class stHtml extends stCore 
 {
     
-    private static $instance; 
+    private static $instance;
     
     public function getInstance()
     {
@@ -29,8 +29,7 @@ class stHtml extends stCore
             self::$instance = new $class();
         }
         return self::$instance;
-    }    
-    
+    }       
     
 	final public function stAttr($attrArray) 
 	{
