@@ -1,3 +1,16 @@
 Project Starfish v0.0.1
 -----------------------
 Initial Release
+
+- Object Based Framework
+- MVC Dispatching
+- Event System
+- MySQL Abstraction Layer with auto-filtering
+- HTML Generator
+- Smart Fields
+- AJAX Support
+- Modularized Functionality
+- Smarty Template Support
+- YUI Integration
+- InputFilter Integration
+- HTMLMimeMail5 Integration

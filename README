@@ -1,4 +1,4 @@
-Project Starfish is a new PHP5 framework in development.
+Project Starfish is a new PHP5 Framework in Development.
 
 Libraries Utilized
 - YUI
@@ -10,3 +10,20 @@ Libraries Utilized
 Required
 - PHP5
 - GDLib
+
+
+-----------------------
+Initial Release Details
+-----------------------  
+- Object Based Framework
+- MVC Dispatching
+- Event System
+- MySQL Abstraction Layer with auto-filtering
+- HTML Generator
+- Smart Fields
+- AJAX Support
+- Modularized Functionality
+- Smarty Template Support
+- YUI Integration
+- InputFilter Integration
+- HTMLMimeMail5 Integration
