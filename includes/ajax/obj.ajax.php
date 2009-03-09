@@ -28,10 +28,16 @@ class stAjax
 	{
 		return true;
 	}
+    
+    public function parseRequest()
+    {
+        $stGlobal = stGlobal::getInstance();
+           
+    }
 
 	private function invoke($object, $method, $data, &$callback) 
 	{
-		
+	    	
 	}
 	
 	private function callback($function, $object)
