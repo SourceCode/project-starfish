@@ -1,5 +1,5 @@
 <?php
-
+   require_once('../core.php'); 
 /**
  * @package starfish
  * @author Ryan Rentfro, http://www.rentfro.net 
@@ -32,7 +32,33 @@ class stAjax
     public function parseRequest()
     {
         $stGlobal = stGlobal::getInstance();
-           
+        if (is_array($stGlobal->active))
+        {
+            $request = $stGlobal->active;
+            unset($stGlobal);
+            if (isset($request['object']))
+            {
+                if (isset($request['method']))
+                {
+                    $objectCall = array($request['object'], $request['method']);  
+                    try { 
+                        $result = call_user_func($objectCall);
+                        if (!empty($result))
+                        {
+                            
+                        } 
+                    } catch(Exception $e) {
+                        throw new stFatalError('Invalid Event Call for ' . $objectCall[0] . '->' . $objectCall[1]);   
+                    } 
+                } else {
+                    return false;
+                }   
+            } else {
+                return false;
+            }  
+        } else {
+           return false; 
+        }   
     }
 
 	private function invoke($object, $method, $data, &$callback) 
@@ -40,7 +66,7 @@ class stAjax
 	    	
 	}
 	
-	private function callback($function, $object)
+	private function returnData($jsonData)
 	{
 		
 	}

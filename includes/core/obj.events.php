@@ -168,11 +168,6 @@ class stEventHandler
     
     public function event($type, $arg)
     {
-        
-        global $dBug;
-        echo 'event ' . $type . '<br /><br />';
-        $dBug->p($arg);
-        
         if ($this->eventTypeExist($type) === true)
         {
             //event type exists

@@ -28,6 +28,8 @@ class stGlobal
 	public $request = array('module'=>'', 'view'=>'');
     public $type = '';
     public $upload = false;
+    
+    public $active;
 			
 	private function initialize()
 	{       
@@ -36,6 +38,7 @@ class stGlobal
 		if (isset($_FILES)) $this->setValue($_FILES, $this->files); 
 		if (isset($_REQUEST)) $this->setValue($_REQUEST, $this->request);
         $this->detectMethods();
+        return true;
 	}
 	
 	public function getInstance()
@@ -60,6 +63,7 @@ class stGlobal
         } else {
             $reference = '';
         }
+        return true;
     }
     
     private function detectMethods()
@@ -80,11 +84,13 @@ class stGlobal
         }    
         
         if ($pCount > $gCount) {
-            $this->type = 'post';                
+            $this->type = 'post';
+            $this->active = $this->post;                
         } elseif ($pCount == $gCount) {
             $this->type = 'get';
+            $this->active = $this->get;
         }
-        
+        return true;
     }
     
 }
