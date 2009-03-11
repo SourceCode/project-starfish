@@ -60,11 +60,6 @@ class stAjax
            return false; 
         }   
     }
-
-	private function invoke($object, $method, $data, &$callback) 
-	{
-	    	
-	}
 	
 	private function returnData($jsonData)
 	{

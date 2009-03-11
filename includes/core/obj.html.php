@@ -33,6 +33,7 @@ class stHtml extends stCore
     
 	final public function stAttr($attrArray) 
 	{
+        $tmpAttr = '';
 		if (is_array($attrArray)) {
 			foreach($attrArray as $key => $value) {
 				if (strtolower($key) == 'selected') {
@@ -80,9 +81,10 @@ class stHtml extends stCore
 				$tagData = $this->stAttr($attr);
 			} else {
 				$tagData = '';
-			}
+			} 
 			$tag = str_replace('{tagData}', $tagData, $tag);
-			return str_replace('{content}', $content, $tag);
+            $tag = str_replace('{content}', $content, $tag); 
+			return $tag;
 		} else {
 			return false;
 		}

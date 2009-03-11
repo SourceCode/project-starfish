@@ -17,7 +17,7 @@
 
 abstract class stLibrary extends stHtml
 {
-	protected $includeList;
+	protected $includeList = array();
 	protected $includeBuffer;
 	
 	abstract public function getBaseDependencies();
@@ -29,6 +29,7 @@ abstract class stLibrary extends stHtml
 	{
 		$this->includeBuffer = '';
 		if (is_array($this->includeList)) {
+            
 			foreach($this->includeList as $includeItem) {
 				$this->includeBuffer .= $includeItem . "\n";
 			}
@@ -41,10 +42,14 @@ abstract class stLibrary extends stHtml
 
 	protected function jsInclude($includeFile) 
 	{
-		if (!empty($includeFile)) {
+        global $dBug;
+        if (!empty($includeFile)) {
 			$jsTag = $this->stTag('script', 'double');
 			$jsAttr = array('src'=> $includeFile, 'type'=>'text/javascript');
-			$this->includeList[] = $this->processTag($jsTag, $jsAttr);
+            echo $this->processTag($jsTag, $jsAttr);
+            $this->includeList[] = $result;
+            $dBug->p($this->includeList);
+            return true;
 		} else {
 			return false;
 		}
@@ -56,6 +61,7 @@ abstract class stLibrary extends stHtml
 			$cssTag = $this->stTag('link');
 			$cssAttr = array('href'=> $includeFile, 'type'=>'text/css', 'rel'=>'stylesheet');
 			$this->includeList[] = $this->processTag($cssTag, $cssAttr);
+            return true;
 		} else {
 			return false;
 		}
@@ -112,7 +118,7 @@ class stYUI extends stLibrary {
 
 	private $dependencyList;
 	private $path;
-	private $packages;
+	private $packages = array('js', 'css');
 	
 	public function __construct() 
 	{
@@ -238,18 +244,25 @@ class stYUI extends stLibrary {
 	
 	public function addPackage($package)
 	{
+        
+        
 		if (!empty($package)) {
-			if (is_array($this->packages['js'][$package])) {
-				foreach($this->packages['js'][$package] as $includeFile) {
-					$this->jsInclude($this->path->yui . '/' . $includeFile);
-				}
+            if (isset($this->packages['js'][$package])){
+			    if (is_array($this->packages['js'][$package])) {
+				    foreach($this->packages['js'][$package] as $includeFile) {
+					    $this->jsInclude($this->path->yui . '/' . $includeFile);
+				    }
+			    }
 			}
-			
-			if (is_array($this->packages['css'][$package])) {
-				foreach($this->packages['css'][$package] as $includeFile) {
-					$this->cssInclude($this->path->yui . '/' . $includeFile);
-				}
-			}
+            
+            if (isset($this->packages['css'][$package])) {
+			    if (is_array($this->packages['css'][$package])) {
+				    foreach($this->packages['css'][$package] as $includeFile) {
+					    $this->cssInclude($this->path->yui . '/' . $includeFile);
+				    }
+			    }
+            }
+            
 			return true;
 		} else {
 			return false;
@@ -257,7 +270,7 @@ class stYUI extends stLibrary {
 	}
 	
 	public function genIncludes()
-	{
+	{   
 		return $this->headerIncludes();
 	}
 
