@@ -42,13 +42,10 @@ abstract class stLibrary extends stHtml
 
 	protected function jsInclude($includeFile) 
 	{
-        global $dBug;
         if (!empty($includeFile)) {
 			$jsTag = $this->stTag('script', 'double');
 			$jsAttr = array('src'=> $includeFile, 'type'=>'text/javascript');
-            echo $this->processTag($jsTag, $jsAttr);
-            $this->includeList[] = $result;
-            $dBug->p($this->includeList);
+            $this->includeList[] = $this->processTag($jsTag, $jsAttr); 
             return true;
 		} else {
 			return false;
