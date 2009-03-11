@@ -14,7 +14,7 @@
  */
  
 require_once('../includes/core.php');
-$yuiControls = new stYui();
+$yuiControls = stYui::getInstance();
 
 
 $yuiControls->addPackage('XHR');

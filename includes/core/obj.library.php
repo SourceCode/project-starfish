@@ -44,8 +44,8 @@ abstract class stLibrary extends stHtml
 	protected function jsInclude($includeFile) 
 	{
         if (!empty($includeFile)) {
-			$jsTag = $this->stTag('script', 'double');
-			$jsAttr = array('src'=> $includeFile, 'type'=>'text/javascript');
+            $jsTag = $this->stTag('script', 'double');
+            $jsAttr = array('src'=> $includeFile, 'type'=>'text/javascript');
             $this->includeList[] = $this->processTag($jsTag, $jsAttr); 
             return true;
 		} else {
@@ -114,11 +114,13 @@ abstract class stLibrary extends stHtml
 
 class stYUI extends stLibrary {
 
+    public static $instance;
+    
 	private $dependencyList;
 	private $path;
 	private $packages = array('js', 'css');
 	
-	public function __construct() 
+	public function initialize() 
 	{
 		$this->dependencyList = array();
 		$this->path = stWebPath::getInstance();
@@ -126,6 +128,17 @@ class stYUI extends stLibrary {
 		$this->makePackageList();
 		$this->getBaseDependencies();
 	}
+    
+    public function getInstance()
+    {
+        if (!isset(self::$instance))
+        {
+            $class = __CLASS__;
+            self::$instance = new $class();
+            self::$instance->initialize();
+        }
+        return self::$instance;
+    }    
 	
 	public function makePackageList()
 	{
