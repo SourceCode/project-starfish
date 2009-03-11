@@ -29,8 +29,9 @@ abstract class stLibrary extends stHtml
 	{
 		$this->includeBuffer = '';
 		if (is_array($this->includeList)) {
-            
+
 			foreach($this->includeList as $includeItem) {
+                echo $includeItem;
 				$this->includeBuffer .= $includeItem . "\n";
 			}
 			$this->includeList = '';
@@ -120,7 +121,7 @@ class stYUI extends stLibrary {
 	public function __construct() 
 	{
 		$this->dependencyList = array();
-		$this->path = new stWebPath();
+		$this->path = stWebPath::getInstance();
 		$this->path->yui = $this->path->lib . '/yui/build';
 		$this->makePackageList();
 		$this->getBaseDependencies();
