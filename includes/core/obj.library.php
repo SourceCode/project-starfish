@@ -155,7 +155,9 @@ class stYUI extends stLibrary {
 		$this->packages['js']['button'][] = 'yahoo-dom-event/yahoo-dom-event.js';
 		$this->packages['js']['button'][] = 'element/element-beta-min.js';
 		$this->packages['js']['button'][] = 'container/container_core-min.js';
-		$this->packages['js']['button'][] = 'menu/menu-min.js';
+        
+        //button menu
+		$this->packages['js']['buttonMenu'][] = 'menu/menu-min.js';
 		
 		//calendar dependencies
 		$this->packages['css']['calendar'][] = 'calendar/assets/skins/sam/calendar.css';
@@ -217,7 +219,7 @@ class stYUI extends stLibrary {
 		$this->packages['css']['treeview'][] = 'treeview/assets/skins/sam/treeview.css';
 		
 		//control includes (put these last so they appear at bottom of list)
-		$this->packages['js']['button'][] = 'button/button-beta-min.js';
+		$this->packages['js']['button'][] = 'button/button-min.js';
 		$this->packages['js']['calendar'][] = 'calendar/calendar-min.js';
 		$this->packages['js']['module'][] = 'container/container-min.js';
 		$this->packages['js']['container'][] = 'container/container-min.js';
