@@ -40,35 +40,19 @@ $includeList = $yuiControls->genIncludes();
 
 function testCallbackFunc()
 {
-    YAHOO.factory.testDialog1.show();
-    console.log('called');
-    console.log(YAHOO.factory.testDialog1);
-    //alert('This test is working');   
+    alert('callback called!');  
+}
+
+function showDialog()
+{
+    YAHOO.factory.testDialog1.show(); 
 }
 
 function init()
 {
-    console.log('test');  
     var oElement = document.getElementById("showDialog");
-    YAHOO.util.Event.addListener(oElement, "click", testCallbackFunc);    
-}
-
- /*
-var loader = new YAHOO.util.YUILoader();
-loader.insert({
-    require: ['fonts','dragdrop','logger'],
-    base: '../../build/',
-
-    onSuccess: function(loader) {
-            YAHOO.util.Event.addListener(YAHOO.util.Dom.get("loglink"), "click", function(e) {
-                YAHOO.util.Event.stopEvent(e);
-                YAHOO.log("This is a simple log message.");
-            });
-
-            // Put a LogReader on your page
-            this.myLogReader = new YAHOO.widget.LogReader();
-    }
-});  */
+    YAHOO.util.Event.addListener(oElement, "click", showDialog);    
+} 
 
 
 

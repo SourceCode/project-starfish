@@ -61,9 +61,9 @@ class stDialogFactory
     
     public function modify($property, $value)
     {
-        if (isset($this->dataStore[$property]))
+        if (isset($this->dataStore['defaults'][$property]))
         {
-            $this->dataStore[$property] = $value;     
+            $this->dataStore['defaults'][$property] = $value;     
         }    
         return $this; 
     }
@@ -153,9 +153,7 @@ class stDialogFactory
                                              } );';
         $this->dataStore['functions'] =
             'YAHOO.factory.{name}.setHeader("{message}");
-             YAHOO.factory.{name}.render();
-             YAHOO.factory.{name}.show();
-             console.log("test2"); 
+             YAHOO.factory.{name}.render(document.body); 
              ';                                                     
             
         $this->dataStore['tplVals']['settings'] = array('{message}', '{name}', '{trueLabel}', '{falseLabel}');

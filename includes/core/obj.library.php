@@ -143,6 +143,7 @@ class stYUI extends stLibrary {
 	{
 		//global dependencies
 		$this->packages['js']['required'][] = 'yahoo/yahoo-min.js';
+        $this->packages['css']['required'][] = 'fonts/fonts-min.css';
 		
 		//basicEvents dependencies
 		$this->packages['js']['basicEvents'][] = 'yahoo-dom-event/yahoo-dom-event.js';
@@ -165,7 +166,7 @@ class stYUI extends stLibrary {
 		
 		//container dependencies
 		$this->packages['css']['container'][] = 'container/assets/skins/sam/container.css';
-        $this->packages['js']['basicEvents'][] = 'element/element-beta-min.js';
+        $this->packages['js']['container'][] = 'element/element-beta-min.js';
 		$this->packages['js']['container'][] = 'yahoo-dom-event/yahoo-dom-event.js';
 		$this->packages['js']['container'][] = 'animation/animation-min.js';
 		$this->packages['js']['container'][] = 'utilities/utilities.js';
