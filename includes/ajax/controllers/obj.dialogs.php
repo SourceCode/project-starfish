@@ -25,16 +25,17 @@ class stDialogFactory
     
     private static $instance;
 
-    private $dataStore = array('namespace', 'handler', 'functions', 'instantiate', 'listeners', 'settings', 'tplVals', 'callback', 'defaults');
+    private $dataStore = array();
     private $buffer;
-
+    
     public $dialogs = array();
     public $namespaces = array();
     
     
     public function initialize()
     {
-        $this->setDefaultData();    
+        $this->namespaces = array('factory', 'factory.init');
+        $this->setDefaultData();
     }      
     
     public function getInstance()
@@ -63,55 +64,60 @@ class stDialogFactory
         if (isset($this->dataStore[$property]))
         {
             $this->dataStore[$property] = $value;     
-        }   
-        
+        }    
         return $this; 
     }
     
     public function render()
     {
-        $yesHandler = str_replace('mode', 'Yes', $this->dataStore['handler']);
-        $yesHandler = str_replace('{callback}', $this->dataStore['settings']['callback'], $yesHandler); 
-        $noHandler = str_replace('mode', 'No', $this->dataStore['handler']);
+        $yesHandler = str_replace('{mode}', 'Yes', $this->dataStore['handler']);
+        $yesHandler = str_replace('{callback}', $this->dataStore['callback'] . '();', $yesHandler); 
+        $noHandler = str_replace('{mode}', 'No', $this->dataStore['handler']);
         $noHandler = str_replace('{callback}', '', $noHandler);
-        $this->buffer = 'YAHOO.generator.init.dialog.{name} = new function() {' . "\n" . $yesHandler . "\n" . $noHandler . "\n" . $this->dataStore['instantiate'] . "\n" . $this->dataStore['functions'] . "\n" . $this->dataStore['listeners'] . '}' . "\n" . 'YAHOO.util.Event.addListener(window, "load", YAHOO.factory.init.dialog.{name})';   
+        $this->buffer = 'YAHOO.factory.init.{name} = function() {' . "\n" . $yesHandler . "\n" . $noHandler . "\n" . $this->dataStore['instantiate'] . "\n" . $this->dataStore['functions'] . "\n" . "\n}" . "\n" . 'YAHOO.util.Event.onDOMReady(YAHOO.factory.init.{name});';   
         $this->buffer = str_replace($this->dataStore['tplVals']['settings'], $this->dataStore['settings'], $this->buffer);
         $this->buffer = str_replace($this->dataStore['tplVals']['defaults'], $this->dataStore['defaults'], $this->buffer);        
         if (strtolower($this->dataStore['defaults']['isDefault']) === 'yes') {
-            $this->buffer = str_replace('{defIsDefYes}', 'true', $this->buffer);   
-            $this->buffer = str_replace('{defIsDefNo}', 'false', $this->buffer);
+            $this->buffer = str_replace('{defIsDefYes}', ', isDefault:true', $this->buffer);   
+            $this->buffer = str_replace('{defIsDefNo}', '', $this->buffer);
         } else {
-            $this->buffer = str_replace('{defIsDefYes}', 'false', $this->buffer);   
-            $this->buffer = str_replace('{defIsDefNo}', 'true', $this->buffer);
+            $this->buffer = str_replace('{defIsDefYes}', '', $this->buffer);   
+            $this->buffer = str_replace('{defIsDefNo}', ', isDefault:true', $this->buffer);
         }
- 
         $namespace = $this->dataStore['settings']['namespace'];
+        $this->dataStore = '';
         $this->dialogs[$namespace] = $this->buffer;
-        $this->namespaces = $namespace;
+        if (count($this->dialogs) == 1) {
+            //invoke required YUI package
+            $yuiControls = stYui::getInstance();
+            $yuiControls->addPackage('container'); 
+        }
         $this->buffer = '';
-        $this->dataStore = array('handler', 'functions', 'instantiate', 'listeners', 'settings', 'tplVals', 'callback', 'defaults');
-        return $this;
+        $this->setDefaultData(); 
+        return true;
     }
     
-    public function paint($collapse=false)
+    public function paint($collapse='')
     {
         $tmpBuffer = '';
-        if (is_array($this->$namespaces) && is_array($this->dialogs))
+        $nameSpaces = '';
+        $namespace = '';
+        $data = '';
+        $dialogs = '';
+        if (is_array($this->namespaces) && is_array($this->dialogs) && isset($this->dataStore['namespace']))
         {
-            foreach($this->$namespaces as $namespace)
+            foreach($this->namespaces as $namespace)
             {
-                $nameSpaces .= str_replace('{namespace}', $namespace, $this->dataStore['namespace']) . "\n";                
+                $nameSpaces .= str_replace('{namespace}', $namespace, $this->dataStore['namespace']) . "\n";                  
             }
-
-            foreach($this->dialogs as $name => $data)
-            {
-                $dialogs .= $data . "\n";          
-            }
+            
+            $dialogs = implode("\n", $this->dialogs);         
             
             $finalCode = $nameSpaces . "\n" . $dialogs;
             $dialogs = '';
-            
-            if ($collapse === true) trim($finalCode, "\n");
+            if ($collapse === true) {
+               $finalCode = trim(preg_replace('/\s+/',' ', $finalCode));
+            } 
             return $finalCode;
         } else {
             return false;
@@ -120,17 +126,20 @@ class stDialogFactory
     
     private function setDefaultData()
     {
-        $this->namespaces = array('factory', 'factoryinit');
         
+        
+        $this->dataStore = array('namespace', 'handler', 'functions', 'instantiate', 'settings', 'tplVals', 'callback', 'defaults');
         $this->dataStore['namespace'] = 'YAHOO.namespace("{namespace}");';
         
         $this->dataStore['handler'] = 
             'var handle{mode} = function() {
-                {callBack};        
+                {callback}        
                  this.hide();
             };';
         $this->dataStore['instantiate'] =
-            'YAHOO.factory.{name} = new YAHOO.widget.SimpleDialog("{name}", 
+            '
+            
+            YAHOO.factory.{name} = new YAHOO.widget.SimpleDialog("{name}", 
                                              { width: "{defWidth}",
                                                fixedcenter: {defFixedCenter},
                                                visible: {defVisible},
@@ -138,17 +147,16 @@ class stDialogFactory
                                                close: {defClose},
                                                text: "{message}",
                                                icon: {defIcon},
-                                               constraintoviewport: {true},
-                                               buttons: [ { text:"{trueLabel}", handler:handleYes, isDefault:{defIsDefYes} },
-                                                          { text:"{falseLabel}",  handler:handleNo, isDefault:{defIsDefNo} } ]
+                                               constraintoviewport: {defConstraintoViewport},
+                                               buttons: [ { text:"{trueLabel}", handler:handleYes{defIsDefYes} },
+                                                          { text:"{falseLabel}",  handler:handleNo{defIsDefNo} } ]
                                              } );';
         $this->dataStore['functions'] =
             'YAHOO.factory.{name}.setHeader("{message}");
-             YAHOO.factory.{name}.render();';                                     
-        
-        $this->dataStore['listeners'] =
-            'YAHOO.util.Event.addListener("show", "click", YAHOO.factory.{name}.show, YAHOO.factory.{name}, true);
-            YAHOO.util.Event.addListener("hide", "click", YAHOO.factory.{name}.hide, YAHOO.factory.{name}, true);';
+             YAHOO.factory.{name}.render();
+             YAHOO.factory.{name}.show();
+             console.log("test2"); 
+             ';                                                     
             
         $this->dataStore['tplVals']['settings'] = array('{message}', '{name}', '{trueLabel}', '{falseLabel}');
         $this->dataStore['tplVals']['defaults'] = 
@@ -160,16 +168,9 @@ class stDialogFactory
                 '{defClose}',
                 '{defIcon}',
                 '{defConstraintoViewport}');
-                /*'{defIsDefault}' used for switching default buytton */
+                /*'{defIsDefault}' used for switching default button */
                 
             
-        $this->setDefaults();        
-        return true;    
-            
-    }
-    
-    private function setDefaults()
-    {
         $this->dataStore['defaults']['width'] = '300px';
         $this->dataStore['defaults']['fixedcenter'] = 'true';
         $this->dataStore['defaults']['visible'] = 'false';
@@ -177,7 +178,10 @@ class stDialogFactory
         $this->dataStore['defaults']['close'] = 'true';
         $this->dataStore['defaults']['icon'] = 'YAHOO.widget.SimpleDialog.ICON_HELP';
         $this->dataStore['defaults']['constraintoviewport'] = 'true';
-        $this->dataStore['defaults']['isDefault'] = 'yes'; 
+        $this->dataStore['defaults']['isDefault'] = 'yes';
+                
+        return true;    
+            
     }
     	
 }

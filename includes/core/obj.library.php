@@ -29,9 +29,7 @@ abstract class stLibrary extends stHtml
 	{
 		$this->includeBuffer = '';
 		if (is_array($this->includeList)) {
-
 			foreach($this->includeList as $includeItem) {
-                echo $includeItem;
 				$this->includeBuffer .= $includeItem . "\n";
 			}
 			$this->includeList = '';
@@ -117,6 +115,7 @@ class stYUI extends stLibrary {
     public static $instance;
     
 	private $dependencyList;
+    public $activePackages = array('base');
 	private $path;
 	private $packages = array('js', 'css');
 	
@@ -166,6 +165,7 @@ class stYUI extends stLibrary {
 		
 		//container dependencies
 		$this->packages['css']['container'][] = 'container/assets/skins/sam/container.css';
+        $this->packages['js']['basicEvents'][] = 'element/element-beta-min.js';
 		$this->packages['js']['container'][] = 'yahoo-dom-event/yahoo-dom-event.js';
 		$this->packages['js']['container'][] = 'animation/animation-min.js';
 		$this->packages['js']['container'][] = 'utilities/utilities.js';
@@ -232,6 +232,7 @@ class stYUI extends stLibrary {
 	
 	public function packageList()
 	{
+        
 		if (is_array($this->packages['js'])) {
 			foreach($this->packages['js'] as $packName => $packFiles) {
 				$rawList[] = $packName;
@@ -255,26 +256,33 @@ class stYUI extends stLibrary {
 	
 	public function addPackage($package)
 	{
-        
-        
-		if (!empty($package)) {
-            if (isset($this->packages['js'][$package])){
-			    if (is_array($this->packages['js'][$package])) {
-				    foreach($this->packages['js'][$package] as $includeFile) {
-					    $this->jsInclude($this->path->yui . '/' . $includeFile);
-				    }
-			    }
-			}
-            
-            if (isset($this->packages['css'][$package])) {
-			    if (is_array($this->packages['css'][$package])) {
-				    foreach($this->packages['css'][$package] as $includeFile) {
-					    $this->cssInclude($this->path->yui . '/' . $includeFile);
-				    }
-			    }
+        if (!in_array($package, $this->activePackages))
+        {
+            if (!empty($package)) 
+            {
+                if (isset($this->packages['js'][$package])){
+                    if (is_array($this->packages['js'][$package])) 
+                    {
+                        foreach($this->packages['js'][$package] as $includeFile) {
+                            $this->jsInclude($this->path->yui . '/' . $includeFile);
+                    }
+                }
+                
+                if (isset($this->packages['css'][$package])) {
+                    if (is_array($this->packages['css'][$package])) {
+                        foreach($this->packages['css'][$package] as $includeFile) {
+                            $this->cssInclude($this->path->yui . '/' . $includeFile);
+                        }
+                    }
+                }
             }
-            
-			return true;
+            $this->activePackages[] = $package;     
+            return true;           
+        } else {
+            return false;    
+        }
+        
+
 		} else {
 			return false;
 		}

@@ -30,7 +30,10 @@ class stFilepath
 	public $images;
 	public $media;
     public $templates;
-    public $logs;  
+    public $logs;
+    public $ajax;
+    public $ajaxController;
+    public $ajaxModule;  
 	
 	private function initialize() 
 	{
@@ -47,7 +50,11 @@ class stFilepath
 		$this->content = $this->media . '/content';
 		$this->modules = $this->root . '/includes/modules';
 		$this->templates = $this->root . '/includes/templates';
-        $this->logs = $this->root . '/includes/logs';   
+        $this->logs = $this->root . '/includes/logs';
+        
+        $this->ajax = $this->includes . '/ajax';
+        $this->ajaxController = $this->ajax . '/controllers';
+        $this->ajaxModule = $this->ajax . '/modules';            
 	}
 	
 	public function getInstance()
@@ -86,6 +93,9 @@ class stWebpath
 	public $modules;
 	public $templates;
     public $logs;
+    public $ajax;
+    public $ajaxController;
+    public $ajaxModule;
 	
 	public function initialize() 
 	{
@@ -100,7 +110,11 @@ class stWebpath
 		$this->content = $this->media . '/content';
 		$this->modules = $this->root . '/includes/modules';
 		$this->templates = $this->root . '/includes/templates';
-        $this->logs = $this->root . '/includes/logs';  
+        $this->logs = $this->root . '/includes/logs';
+        
+        $this->ajax = $this->includes . '/ajax';
+        $this->ajaxController = $this->ajax . '/controllers';
+        $this->ajaxModule = $this->ajax . '/modules';   
 	}
 	
 	public function getInstance()
