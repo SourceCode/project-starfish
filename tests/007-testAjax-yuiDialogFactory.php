@@ -47,17 +47,17 @@ function testCallbackFunc()
 
 function showDialog1()
 {
-    YAHOO.factory.testDialog1.show(); 
+    YAHOO.dialogFactory.testDialog1.show(); 
 }
 
 function showDialog2()
 {
-    YAHOO.factory.testDialog2.show(); 
+    YAHOO.dialogFactory.testDialog2.show(); 
 }
 
 function showDialog3()
 {
-    YAHOO.factory.testDialog3.show(); 
+    YAHOO.dialogFactory.testDialog3.show(); 
 }
 
 function init()

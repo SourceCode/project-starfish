@@ -34,7 +34,7 @@ class stDialogFactory
     
     public function initialize()
     {
-        $this->namespaces = array('factory', 'factory.init');
+        $this->namespaces = array('dialogFactory', 'dialogFactory.init',);
         $this->setDefaultData();
     }      
     
@@ -74,7 +74,7 @@ class stDialogFactory
         $yesHandler = str_replace('{callback}', $this->dataStore['callback'] . '();', $yesHandler); 
         $noHandler = str_replace('{mode}', 'No', $this->dataStore['handler']);
         $noHandler = str_replace('{callback}', '', $noHandler);
-        $this->buffer = 'YAHOO.factory.init.{name} = function() {' . "\n" . $yesHandler . "\n" . $noHandler . "\n" . $this->dataStore['instantiate'] . "\n" . $this->dataStore['functions'] . "\n" . "\n}" . "\n" . 'YAHOO.util.Event.onDOMReady(YAHOO.factory.init.{name});';   
+        $this->buffer = 'YAHOO.dialogFactory.init.{name} = function() {' . "\n" . $yesHandler . "\n" . $noHandler . "\n" . $this->dataStore['instantiate'] . "\n" . $this->dataStore['functions'] . "\n\n}" . "\n" . 'YAHOO.util.Event.onDOMReady(YAHOO.dialogFactory.init.{name});';   
         $this->buffer = str_replace($this->dataStore['tplVals']['settings'], $this->dataStore['settings'], $this->buffer);
         $this->buffer = str_replace($this->dataStore['tplVals']['defaults'], $this->dataStore['defaults'], $this->buffer);        
         if (strtolower($this->dataStore['defaults']['isDefault']) === 'yes') {
@@ -126,8 +126,6 @@ class stDialogFactory
     
     private function setDefaultData()
     {
-        
-        
         $this->dataStore = array('namespace', 'handler', 'functions', 'instantiate', 'settings', 'tplVals', 'callback', 'defaults');
         $this->dataStore['namespace'] = 'YAHOO.namespace("{namespace}");';
         
@@ -139,7 +137,7 @@ class stDialogFactory
         $this->dataStore['instantiate'] =
             '
             
-            YAHOO.factory.{name} = new YAHOO.widget.SimpleDialog("{name}", 
+            YAHOO.dialogFactory.{name} = new YAHOO.widget.SimpleDialog("{name}", 
                                              { width: "{defWidth}",
                                                fixedcenter: {defFixedCenter},
                                                visible: {defVisible},
@@ -152,8 +150,8 @@ class stDialogFactory
                                                           { text:"{falseLabel}",  handler:handleNo{defIsDefNo} } ]
                                              } );';
         $this->dataStore['functions'] =
-            'YAHOO.factory.{name}.setHeader("{message}");
-             YAHOO.factory.{name}.render(document.body); 
+            'YAHOO.dialogFactory.{name}.setHeader("{message}");
+             YAHOO.dialogFactory.{name}.render(document.body); 
              ';                                                     
             
         $this->dataStore['tplVals']['settings'] = array('{message}', '{name}', '{trueLabel}', '{falseLabel}');
@@ -178,8 +176,7 @@ class stDialogFactory
         $this->dataStore['defaults']['constraintoviewport'] = 'true';
         $this->dataStore['defaults']['isDefault'] = 'yes';
                 
-        return true;    
-            
+        return true;        
     }
     	
 }
