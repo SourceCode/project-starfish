@@ -2,7 +2,7 @@
   /**
  * @package starfish
  * @author Ryan Rentfro, http://www.rentfro.net 
- * @version 005-testEvents.php, v0.0.1a
+ * @version 007-testAjax-yuiDialogFactory.php, v0.0.1a
  * @copyright Ryan Rentfro, http://www.rentfro.net
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  * @category tests
@@ -47,17 +47,17 @@ function testCallbackFunc()
 
 function showDialog1()
 {
-    YAHOO.dialogFactory.testDialog1.show(); 
+    YAHOO.factory.testDialog1.show(); 
 }
 
 function showDialog2()
 {
-    YAHOO.dialogFactory.testDialog2.show(); 
+    YAHOO.factory.testDialog2.show(); 
 }
 
 function showDialog3()
 {
-    YAHOO.dialogFactory.testDialog3.show(); 
+    YAHOO.factory.testDialog3.show(); 
 }
 
 function init()

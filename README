@@ -18,6 +18,7 @@ Initial Release Details
 - Object Based Framework
 - MVC Dispatching
 - Event System
+- Web Service Proxy
 - MySQL Abstraction Layer with auto-filtering
 - HTML Generator
 - Smart Fields
