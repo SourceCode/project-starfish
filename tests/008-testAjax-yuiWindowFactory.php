@@ -16,6 +16,7 @@
 require_once('../includes/core.php');
 $stFilePath = stFilepath::getInstance();
 
+require_once($stFilePath->ajaxController . '/yui/obj.yui.php');  
 require_once($stFilePath->ajaxController . '/yui/obj.windows.php');
 
 //get YUI library instance

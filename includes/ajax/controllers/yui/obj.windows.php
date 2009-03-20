@@ -18,7 +18,7 @@
  * 
  */
 
-class stWindowFactory
+class stWindowFactory extends stYUIFactory
 {
     public $windows = array();
     

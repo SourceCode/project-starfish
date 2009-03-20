@@ -63,7 +63,7 @@ abstract class stYUIFactory extends stYUIController
         return $this; 
     }
     
-    private function iterateOptionSet($array)
+    protected function iterateOptionSet($array)
     {
         $options = '';
         if (is_array($array))
@@ -72,11 +72,11 @@ abstract class stYUIFactory extends stYUIController
             {
                 if ((is_string($value) || is_int($value)) && !is_bool($value))
                 {
-                    if (!empty($value)) $options .= $key . ':"' . $value . '", ';
+                    if (!empty($value)) $options .= $key . ((is_int($value)) ? ':' . $value . ', ':':"' . $value . '", ');
                 } elseif (is_bool($value)) 
                 {
                     $options .= ( ($value) ? $key . ':true':$key . ':false' ) . ', ';
-                }         
+                }
             }
             $length = strlen($options) - 2;
             $options = substr($options, 0, $length);
