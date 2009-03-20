@@ -81,12 +81,12 @@ class stWindowFactory
         $config = '';
         $render = '';
         $config = $this->genConfig();
-        $this->buffer = 'YAHOO.windowFactory.init.{name} = function() {' . "\n" . $this->dataStore['instantiate']  . "\n\n" . '{functions}' . "\n\n }" . "\n" . 'YAHOO.util.Event.onDOMReady(YAHOO.dialogFactory.init.{name});';
+        $this->buffer = 'YAHOO.windowFactory.init.{name} = function() {' . "\n" . $this->dataStore['instantiate']  . "\n\n" . '{functions}' . "\n\n }" . "\n" . 'YAHOO.util.Event.onDOMReady(YAHOO.windowFactory.init.{name});';
         if (!empty($this->dataStore['defaults']['header']) || !empty($this->dataStore['defaults']['body']) || !empty($this->dataStore['defaults']['footer']))
         {
             $contentFuncs = str_replace('{header}', $this->dataStore['defaults']['header'], $this->dataStore['functions']['setContent']);
             $contentFuncs = str_replace('{body}', $this->dataStore['defaults']['body'], $contentFuncs);
-            $contentFuncs = str_replace('{body}', $this->dataStore['defaults']['footer'], $contentFuncs);
+            $contentFuncs = str_replace('{footer}', $this->dataStore['defaults']['footer'], $contentFuncs);
         }
         
         if (empty($this->dataStore['target']))
@@ -102,11 +102,12 @@ class stWindowFactory
         $this->buffer = str_replace($this->dataStore['tplVals']['settings'], $this->dataStore['settings'], $this->buffer);
         $namespace = $this->dataStore['settings']['namespace'];
         $this->dataStore = '';
-        $this->dialogs[$namespace] = $this->buffer;
-        if (count($this->dialogs) == 1) {
+        $this->windows[$namespace] = $this->buffer;
+        if (count($this->windows) == 1) {
             //invoke required YUI package
             $yuiControls = stYui::getInstance();
-            $yuiControls->addPackage('container'); 
+            $yuiControls->addPackage('container');
+            $yuiControls->addPackage('dragdrop'); 
         }
         $this->buffer = '';
         $this->setDefaultData();
@@ -132,7 +133,7 @@ class stWindowFactory
                     if (!empty($value)) $options .= $key . ':"' . $value . '", ';
                 } elseif (is_bool($value)) 
                 {
-                   if (!empty($value)) $options .= $key . ':' . $value . ', ';  
+                    $options .= ( ($value) ? $key . ':true':$key . ':false' ) . ', ';
                 }         
             }
             $length = strlen($options) - 2;
@@ -175,7 +176,7 @@ class stWindowFactory
         $this->dataStore = array('namespace', 'functions', 'instantiate', 'settings', 'tplVals', 'defaults', 'options', 'target');
         
         $this->dataStore['instantiate'] =
-            'YAHOO.windowFactory.{name} = new YAHOO.widget.Overlay("{name}", { 
+            'YAHOO.windowFactory.{name} = new YAHOO.widget.Panel("{name}", { 
                 {widgetConfig} 
                 } );';
         $this->dataStore['namespace'] = 'YAHOO.namespace("{namespace}");'; 
@@ -188,7 +189,7 @@ class stWindowFactory
         $this->dataStore['functions']['setRender'] =      
             'YAHOO.windowFactory.{name}.render({renderTarget});'; 
         
-        $this->dataStore['tplVals']['settings'] = array('{namespace}');
+        $this->dataStore['tplVals']['settings'] = array('{name}');
         
         $this->dataStore['defaults']['width'] = '300px';
         $this->dataStore['defaults']['visible'] = false;

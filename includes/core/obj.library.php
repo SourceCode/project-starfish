@@ -219,6 +219,7 @@ class stYUI extends stLibrary {
 		$this->packages['css']['treeview'][] = 'treeview/assets/skins/sam/treeview.css';
 		
 		//control includes (put these last so they appear at bottom of list)
+        $this->packages['js']['dragdrop'][] = 'dragdrop/dragdrop-min.js';
 		$this->packages['js']['button'][] = 'button/button-min.js';
 		$this->packages['js']['calendar'][] = 'calendar/calendar-min.js';
 		$this->packages['js']['module'][] = 'container/container-min.js';

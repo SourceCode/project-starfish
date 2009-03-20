@@ -18,8 +18,19 @@ $stFilePath = stFilepath::getInstance();
 
 require_once($stFilePath->ajaxController . '/obj.windows.php');
 
+//get YUI library instance
+$yuiControls = stYui::getInstance();
+
+//get instance of dialog factory
+$yuiDialog = stWindowFactory::getInstance();
+
+$yuiDialog->create('window1', 'test window 1', 'test window 1', 'test window 1')->modify('draggable', true)->render();
+$yuiDialog->create('window2', 'test', 'test window 2', 'test')->render();
+$yuiDialog->create('window3', 'test', 'test window 3', 'test')->modify('width', '800px')->modify('draggable', true)->render();
+
 //generate includes
 $includeList = $yuiControls->genIncludes();
+
 ?>
 <html>
 <head>
@@ -32,7 +43,9 @@ $includeList = $yuiControls->genIncludes();
 
 function init()
 {  
-        
+    YAHOO.util.Event.addListener("showWindow1", "click", YAHOO.windowFactory.window1.show, YAHOO.windowFactory.window1, true);
+    YAHOO.util.Event.addListener("showWindow2", "click", YAHOO.windowFactory.window2.show, YAHOO.windowFactory.window2, true);
+    YAHOO.util.Event.addListener("showWindow3", "click", YAHOO.windowFactory.window3.show, YAHOO.windowFactory.window3, true);  
 } 
 
 YAHOO.util.Event.onDOMReady(init);
