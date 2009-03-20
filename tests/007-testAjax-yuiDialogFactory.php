@@ -16,7 +16,9 @@
 require_once('../includes/core.php');
 $stFilePath = stFilepath::getInstance();
 
-require_once($stFilePath->ajaxController . '/obj.dialogs.php');
+require_once($stFilePath->ajaxController . '/yui/obj.yui.php');
+require_once($stFilePath->ajaxController . '/yui/obj.dialogs.php');
+
 
 //get YUI library instance
 $yuiControls = stYui::getInstance();

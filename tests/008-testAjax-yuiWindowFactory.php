@@ -16,7 +16,7 @@
 require_once('../includes/core.php');
 $stFilePath = stFilepath::getInstance();
 
-require_once($stFilePath->ajaxController . '/obj.windows.php');
+require_once($stFilePath->ajaxController . '/yui/obj.windows.php');
 
 //get YUI library instance
 $yuiControls = stYui::getInstance();
@@ -35,7 +35,7 @@ $includeList = $yuiControls->genIncludes();
 <html>
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-<title>Test YUI Dialog Factory</title>
+<title>Test YUI Window Factory</title>
 <?php echo $includeList; ?>
 <script>
 

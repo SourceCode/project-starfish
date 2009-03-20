@@ -20,17 +20,10 @@
  * 
  */
 
-class stDialogFactory 
+class stDialogFactory extends stYUIFactory 
 {
     
-    private static $instance;
-
-    private $dataStore = array();
-    private $buffer;
-    
     public $dialogs = array();
-    public $namespaces = array();
-    
     
     public function initialize()
     {
@@ -57,15 +50,6 @@ class stDialogFactory
         $this->dataStore['settings']['falseLabel'] = $falseLabel;
         $this->dataStore['callback'] = $callback;
         return $this;  
-    }
-    
-    public function modify($property, $value)
-    {
-        if (isset($this->dataStore['defaults'][$property]))
-        {
-            $this->dataStore['defaults'][$property] = $value;     
-        }    
-        return $this; 
     }
     
     public function render()
@@ -124,7 +108,7 @@ class stDialogFactory
         }    
     }
     
-    private function setDefaultData()
+    protected function setDefaultData()
     {
         $this->dataStore = array('namespace', 'handler', 'functions', 'instantiate', 'settings', 'tplVals', 'callback', 'defaults');
         $this->dataStore['namespace'] = 'YAHOO.namespace("{namespace}");';
