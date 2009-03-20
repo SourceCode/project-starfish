@@ -128,7 +128,7 @@ class stWindowFactory
         {
             foreach($array as $key => $value)
             {
-                if (is_string($value) && !is_bool($value))
+                if ((is_string($value) || is_int($value)) && !is_bool($value))
                 {
                     if (!empty($value)) $options .= $key . ':"' . $value . '", ';
                 } elseif (is_bool($value)) 
