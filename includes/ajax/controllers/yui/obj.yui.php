@@ -1,5 +1,23 @@
 <?php
 
+/**
+ * @package starfish
+ * @author Ryan Rentfro, http://www.rentfro.net 
+ * @version obj.yui.php, v0.0.1a
+ * @copyright Ryan Rentfro, http://www.rentfro.net
+ * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
+ * @category ajaxUI
+ */
+
+  /**
+ * @access public
+ * @var object yui controller base class
+ * @category objects
+ * 
+ * stYuiController is the base class for all YUI controller classes.
+ * 
+ */
+
 class stYUIController
 {
     protected static $instance;
@@ -9,6 +27,15 @@ class stYUIController
     
     public $namespaces = array();
 }
+
+  /**
+ * @access public
+ * @var object yui factory base class
+ * @category objects
+ * 
+ * stYUIFactory is the base abstract class for yui factory classes.
+ * 
+ */
 
 abstract class stYUIFactory extends stYUIController 
 {
@@ -60,7 +87,3 @@ abstract class stYUIFactory extends stYUIController
     }
     
 }
-
-
-
-?>

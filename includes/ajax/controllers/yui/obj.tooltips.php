@@ -21,15 +21,8 @@
  */
 
 class stWindowFactory
-{
-    private static $instance;
-
-    private $dataStore = array();
-    private $buffer;
-    
-    public $windows = array();
-    public $namespaces = array();
-    
+{ 
+    public $tooltips = array();
     
     public function initialize()
     {
@@ -51,33 +44,23 @@ class stWindowFactory
     public function create($namespace, $context, $msg)
     {
         $this->dataStore['settings']['namespace'] = $namespace;
-        $this->dataStore['settings']['context'] = $context;
-        $this->dataStore['settings']['msg'] = $msg; 
+        $this->dataStore['default']['context'] = $context;
+        $this->dataStore['default']['msg'] = $msg;  
         return $this;  
-    }
-    
-    public function modify($property, $value)
-    { 
-        if (isset($this->dataStore['defaults'][$property]))
-        {
-            $this->dataStore['defaults'][$property] = $value;     
-        }   
-        return $this; 
-    }
-    
-    public function option($property, $value)
-    { 
-        if (isset($this->dataStore['options'][$property]))
-        {
-            $this->dataStore['options'][$property] = $value;     
-        }
-        return $this; 
     }
     
     public function render()
     {
-
+       $config = '';
+       $config = $this->genConfig();
+       $this->buffer = 'YAHOO.tooltipFactory.init.{name} = function() {' . "\n\n" . $this->dataStore['instantiate'] . "\n\n}\n\n" . 'YAHOO.util.Event.onDOMReady(YAHOO.tooltipFactory.init.{name});';
         return true;
+    } 
+
+    
+    public function paint($collapse='')
+    {
+ 
     }
     
     private function genConfig()
@@ -87,41 +70,15 @@ class stWindowFactory
         return (!empty($options)) ? $defaults . ', ' . $options:$defaults;    
     }
     
-    private function iterateOptionSet($array)
-    {
-        $options = '';
-        if (is_array($array))
-        {
-            foreach($array as $key => $value)
-            {
-                if ((is_string($value) || is_int($value)) && !is_bool($value))
-                {
-                    if (!empty($value)) $options .= $key . ':"' . $value . '", ';
-                } elseif (is_bool($value)) 
-                {
-                    $options .= ( ($value) ? $key . ':true':$key . ':false' ) . ', ';
-                }         
-            }
-            $length = strlen($options) - 2;
-            $options = substr($options, 0, $length);
-            return $options;         
-        } else {
-            return false;   
-        }         
-    }
-    
-    public function paint($collapse='')
-    {
- 
-    }
-    
     private function setDefaultData()
     {
         $this->dataStore = array('namespace', 'functions', 'instantiate', 'settings', 'tplVals', 'defaults', 'options', 'target');
         
-        
-        $this->dataStore['instantiate'] = 'YAHOO.tooltipFactory = new YAHOO.widget.Tooltip("tt1", { context:"ctx", text:"My text was set using the \'text\' configuration property" });';
+        $this->dataStore['instantiate'] = 'YAHOO.tooltipFactory.{name} = new YAHOO.widget.Tooltip("{name}", { {widgetConfig} });';
 
+        $this->dataStore['default']['context'] = '';
+        $this->dataStore['default']['msg'] = ''; 
+        
         $this->dataStore['options']['showdelay'] = '';
         $this->dataStore['options']['hidedelay'] = '';
         $this->dataStore['options']['autodismissdelay'] = '';
