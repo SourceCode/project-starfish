@@ -9,12 +9,10 @@
  * @category ajaxUI
  */
 
-  /**
+/**
  * @access public
  * @var object yui window factory
  * @category objects
- * 
- * codeStore stores individual page segments, then after segments are complete they are rendered in the buffer - then placed in list, then buffer / defaults are reset
  * 
  * Use method chaining when calling this object.
  * 

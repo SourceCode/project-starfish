@@ -9,7 +9,7 @@
  * @category ajaxUI
  */
 
-  /**
+/**
  * @access public
  * @var object yui controller base class
  * @category objects
