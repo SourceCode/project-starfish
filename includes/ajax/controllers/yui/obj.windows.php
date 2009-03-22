@@ -80,6 +80,7 @@ class stWindowFactory extends stYUIFactory
             //invoke required YUI package
             $yuiControls = stYui::getInstance();
             $yuiControls->addPackage('container');
+            $yuiControls->addPackage('basicEvents');
             $yuiControls->addPackage('dragdrop'); 
         }
         $this->buffer = '';

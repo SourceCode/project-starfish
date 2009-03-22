@@ -72,7 +72,8 @@ class stDialogFactory extends stYUIFactory
         if (count($this->dialogs) == 1) {
             //invoke required YUI package
             $yuiControls = stYui::getInstance();
-            $yuiControls->addPackage('container'); 
+            $yuiControls->addPackage('container');
+            $yuiControls->addPackage('basicEvents'); 
         }
         $this->buffer = '';
         $this->setDefaultData(); 

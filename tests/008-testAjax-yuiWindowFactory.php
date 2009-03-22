@@ -54,8 +54,8 @@ YAHOO.util.Event.onDOMReady(init);
 </head>
 <body class=" yui-skin-sam">
 YUI Window Factory
-<input type="button" value="Show Window1" name="showWindow1" id="showWindow1">
-<input type="button" value="Show Window2" name="showWindow2" id="showWindow2">
-<input type="button" value="Show Window3" name="showWindow3" id="showWindow3"> 
+    <input type="button" value="Show Window1" name="showWindow1" id="showWindow1">
+    <input type="button" value="Show Window2" name="showWindow2" id="showWindow2">
+    <input type="button" value="Show Window3" name="showWindow3" id="showWindow3"> 
 </body>
 </html>

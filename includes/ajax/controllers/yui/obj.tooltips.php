@@ -3,7 +3,7 @@
 /**
  * @package starfish
  * @author Ryan Rentfro, http://www.rentfro.net 
- * @version obj.windows.php, v0.0.1a
+ * @version obj.tooltips.php, v0.0.1a
  * @copyright Ryan Rentfro, http://www.rentfro.net
  * @license http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
  * @category ajaxUI
@@ -61,7 +61,8 @@ class stTooltipFactory extends stYUIFactory
        if (count($this->tooltips) == 1) {
             //invoke required YUI package
             $yuiControls = stYui::getInstance();
-            $yuiControls->addPackage('container'); 
+            $yuiControls->addPackage('container');
+            $yuiControls->addPackage('basicEvents'); 
        }
        $this->setDefaultData();
        return true;
@@ -78,10 +79,10 @@ class stTooltipFactory extends stYUIFactory
         {
             foreach($this->namespaces as $namespace)
             {
-                $nameSpaces .= str_replace('{namespace}', $namespace, $this->dataStore['namespace']) . "\n";                  
+                $nameSpaces .= str_replace('{namespace}', $namespace, $this->dataStore['namespace']) . "\n";
             }
             
-            $tooltips = implode("\n", $this->tooltips);         
+            $tooltips = implode("\n", $this->tooltips);
             
             $finalCode = $nameSpaces . "\n" . $tooltips;
             $tooltips = '';
@@ -91,14 +92,14 @@ class stTooltipFactory extends stYUIFactory
             return $finalCode;
         } else {
             return false;
-        } 
+        }
     }
     
     private function genConfig()
     {
         $defaults = $this->iterateOptionSet($this->dataStore['defaults']);
         $options = $this->iterateOptionSet($this->dataStore['options']);
-        return (!empty($options)) ? $defaults . ', ' . $options:$defaults;    
+        return (!empty($options)) ? $defaults . ', ' . $options:$defaults;
     }
     
     protected function setDefaultData()
@@ -118,6 +119,6 @@ class stTooltipFactory extends stYUIFactory
         $this->dataStore['options']['hidedelay'] = '';
         $this->dataStore['options']['autodismissdelay'] = '';
         
-        return true;          
-    }    
+        return true;
+    }
 }

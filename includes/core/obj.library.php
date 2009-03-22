@@ -28,6 +28,7 @@ abstract class stLibrary extends stHtml
 	protected function headerIncludes() 
 	{
 		$this->includeBuffer = '';
+        $this->includeList = array_unique($this->includeList);
 		if (is_array($this->includeList)) {
 			foreach($this->includeList as $includeItem) {
 				$this->includeBuffer .= $includeItem . "\n";
@@ -197,7 +198,12 @@ class stYUI extends stLibrary {
 		
 		//grid dependencies
 		$this->packages['css']['grid'][] = 'grids/grids-min.css';
-		
+        
+        //auto complete
+        $this->packages['css']['autocomplete'][] = 'fonts/fonts-min.css';
+		$this->packages['css']['autocomplete'][] = 'autocomplete/assets/skins/sam/autocomplete.css';
+        $this->packages['js']['autocomplete'][] = 'datasource/datasource-min.js';
+         
 		//logger dependencies
 		$this->packages['css']['logger'][] = 'assets/skins/sam/logger.css';
 		$this->packages['js']['logger'][] = 'yahoo-dom-event/yahoo-dom-event.js';
@@ -219,6 +225,7 @@ class stYUI extends stLibrary {
 		$this->packages['css']['treeview'][] = 'treeview/assets/skins/sam/treeview.css';
 		
 		//control includes (put these last so they appear at bottom of list)
+        $this->packages['js']['autocomplete'][] = 'autocomplete/autocomplete-min.js';
         $this->packages['js']['dragdrop'][] = 'dragdrop/dragdrop-min.js';
 		$this->packages['js']['button'][] = 'button/button-min.js';
 		$this->packages['js']['calendar'][] = 'calendar/calendar-min.js';
