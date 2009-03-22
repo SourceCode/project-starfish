@@ -474,7 +474,6 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
 			}
 		}
 		
-		YAHOO.log("FlashAdapter instance destroyed: " + instanceName);
 	},
 
 	/**
@@ -523,7 +522,6 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
 		}
 		else
 		{
-			YAHOO.log("Unable to load SWF " + swfURL);
 		}
 	},
 
@@ -542,7 +540,6 @@ YAHOO.extend(YAHOO.widget.FlashAdapter, YAHOO.util.AttributeProvider,
    				this._loadHandler();
 				return;
 			case "log":
-				YAHOO.log(event.message, event.category, this.toString());
 				return;
 		}
 		
