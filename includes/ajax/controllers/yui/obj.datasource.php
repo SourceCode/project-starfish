@@ -18,7 +18,7 @@
  * 
  */
 
-class stAutoCompleteFactory extends stYUIFactory
+class stDataSourceFactory extends stYUIFactory
 { 
     public $dataSource = array();
     private $schemaSet = false;
@@ -137,7 +137,7 @@ class stAutoCompleteFactory extends stYUIFactory
         $this->dataStore['settings']['schema'] = '';
         $this->dataStore['settings']['dataClass'] = '';
         
-        $this->dataStore['defaults']['connXhrMode'] = ''; 
+        $this->dataStore['defaults']['connXhrMode'] = '';
         
         $this->dataStore['calls']['setType'] = 'YAHOO.util.{type}.{dataClass}';
         $this->dataStore['calls']['responseType'] = '';
