@@ -54,7 +54,7 @@ class stAutoCompleteFactory extends stYUIFactory
         if ($this->schemaSet === false) return false;
         $callSet = '';
         $name = '';
-        $this->buffer = 'YAHOO.dataSourceFactory.init.{name} = function() {' . "\n" . $this->dataStore['instantiate'] . "\n" . '{schema}' . "\n\n" . '{calls}' . "\n\n}\n\n"  . 'YAHOO.util.Event.onDOMReady(YAHOO.dataSourceFactory.init.{name});';
+        $this->buffer = $this->dataStore['instantiate'] . "\n" . '{calls}' . "\n}\n\n";
         $this->buffer = str_replace('{name}', $this->dataStore['settings']['namespace'], $this->buffer);
         $this->buffer = str_replace('{type}', $this->dataStore['settings']['type'], $this->buffer);
         $this->buffer = str_replace('{source}', $this->dataStore['settings']['data'], $this->buffer);
@@ -130,7 +130,9 @@ class stAutoCompleteFactory extends stYUIFactory
     {
         $this->dataStore = array('namespace', 'instantiate', 'settings', 'tplVals', 'defaults', 'options', 'calls');
         
-        $this->dataStore['instantiate'] = 'YAHOO.dataSourceFactory.{name} = new YAHOO.util.{type}({source});';
+        $this->dataStore['instantiate'] = '
+        YAHOO.dataSourceFactory.{name} = new YAHOO.util.{type}({source});
+        YAHOO.dataSourceFactory.{name}.responseSchema = {schema}';
 
         $this->dataStore['settings']['schema'] = '';
         $this->dataStore['settings']['dataClass'] = '';
