@@ -223,8 +223,14 @@ class stYUI extends stLibrary {
 		
 		//treeview dependenceis
 		$this->packages['css']['treeview'][] = 'treeview/assets/skins/sam/treeview.css';
+        
+        //datasource dependencies
+        $this->packages['js']['datasource'][] = 'json/json-min.js'; 
+        $this->packages['js']['datasource'][] = 'connection/connection-min.js'; 
+        $this->packages['js']['datasource'][] = 'get/get-min.js'; 
 		
 		//control includes (put these last so they appear at bottom of list)
+        $this->packages['js']['datasource'][] = 'datasource/datasource-min.js';
         $this->packages['js']['autocomplete'][] = 'autocomplete/autocomplete-min.js';
         $this->packages['js']['dragdrop'][] = 'dragdrop/dragdrop-min.js';
 		$this->packages['js']['button'][] = 'button/button-min.js';

@@ -54,10 +54,7 @@ class stDataSourceFactory extends stYUIFactory
         if ($this->schemaSet === false) return false;
         $callSet = '';
         $name = '';
-        $this->buffer = $this->dataStore['instantiate'] . "\n" . '{calls}' . "\n}\n\n";
-        $this->buffer = str_replace('{name}', $this->dataStore['settings']['namespace'], $this->buffer);
-        $this->buffer = str_replace('{type}', $this->dataStore['settings']['type'], $this->buffer);
-        $this->buffer = str_replace('{source}', $this->dataStore['settings']['data'], $this->buffer);
+        $this->buffer = $this->dataStore['instantiate'] . "\n" . '{calls}' . "\n\n";
         foreach($this->dataStore['calls'] as $function => $arg)
         {
             if (!empty($arg))
@@ -70,7 +67,7 @@ class stDataSourceFactory extends stYUIFactory
                 {
                     $call .= ($arg) ? 'true':'false';
                 }
-                $callSet .= $call . "\n";
+                $callSet .= $call . ";\n";
             }   
         }
         $this->buffer = str_replace('{calls}', $callSet, $this->buffer);
@@ -78,10 +75,20 @@ class stDataSourceFactory extends stYUIFactory
         $this->buffer = str_replace('{schema}', $this->dataStore['settings']['schema'], $this->buffer);
         $this->dataStore['settings']['schema'] = '';
         $this->buffer = str_replace('{dataClass}', $this->dataStore['settings']['dataClass'], $this->buffer);
+        $this->buffer = str_replace('{name}', $this->dataStore['settings']['namespace'], $this->buffer);
+        $this->buffer = str_replace('{type}', $this->dataStore['settings']['type'], $this->buffer);
+        $this->buffer = str_replace('{source}', $this->dataStore['settings']['data'], $this->buffer);
         $name = $this->dataStore['settings']['namespace'];
         $this->dataSource[$name] = $this->buffer;
         $this->buffer = '';
         $this->setDefaultData();
+        if (count($this->dataSource) == 1) {
+            //invoke required YUI package
+            $yuiControls = stYui::getInstance();
+            $yuiControls->addPackage('basicEvents');
+            $yuiControls->addPackage('datasource');  
+        }
+        
        return true;
     }
     
@@ -101,8 +108,8 @@ class stDataSourceFactory extends stYUIFactory
             
             $dataSources = implode("\n", $this->dataSource);         
             
-            $finalCode = $nameSpaces . "\n" . $dialogs;
-            $dialogs = '';
+            $finalCode = $nameSpaces . "\n" . $dataSources;
+            $dataSources = '';
             if ($collapse === true) {
                $finalCode = trim(preg_replace('/\s+/',' ', $finalCode));
             } 
@@ -116,7 +123,8 @@ class stDataSourceFactory extends stYUIFactory
     {
         $this->schemaSet = true;
         $this->dataStore['settings']['schema'] = $schema;
-        $this->dataStore['settings']['dataClass'] = $dataClass;   
+        $this->dataStore['settings']['dataClass'] = $dataClass;
+        return $this;   
     }
     
     private function genConfig()
@@ -130,9 +138,11 @@ class stDataSourceFactory extends stYUIFactory
     {
         $this->dataStore = array('namespace', 'instantiate', 'settings', 'tplVals', 'defaults', 'options', 'calls');
         
+        $this->dataStore['namespace'] = 'YAHOO.namespace("{namespace}");'; 
+        
         $this->dataStore['instantiate'] = '
         YAHOO.dataSourceFactory.{name} = new YAHOO.util.{type}({source});
-        YAHOO.dataSourceFactory.{name}.responseSchema = {schema}';
+        YAHOO.dataSourceFactory.{name}.responseSchema = {schema};';
 
         $this->dataStore['settings']['schema'] = '';
         $this->dataStore['settings']['dataClass'] = '';
