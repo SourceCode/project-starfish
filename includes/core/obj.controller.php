@@ -105,6 +105,19 @@ class stController
 		}
 	}
 	
+    public function get($dataTag)
+    {
+        if (isset($this->state['data']))
+        {
+            if (isset($this->state['data'][$dataTag]))
+            {
+                return $this->state['data'][$dataTag];    
+            } else {
+                return false;
+            }
+        }      
+    }
+    
     private function setDefaultState($type='')
     {
         if ($type=='view')

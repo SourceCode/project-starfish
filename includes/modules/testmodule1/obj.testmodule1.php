@@ -26,6 +26,4 @@ class testmodule1 implements stStandardModule
 			
 	}
 	
-	
-	
 }

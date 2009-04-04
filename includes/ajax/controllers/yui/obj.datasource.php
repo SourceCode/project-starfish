@@ -25,7 +25,7 @@ class stDataSourceFactory extends stYUIFactory
     
     public function initialize()
     {
-        $this->namespaces = array('dataSourceFactory', 'dataSourceFactory.init');
+        $this->namespaces = array('dataSourceFactory');
         $this->setDefaultData();
     }      
     
@@ -59,7 +59,7 @@ class stDataSourceFactory extends stYUIFactory
         {
             if (!empty($arg))
             {
-                $call =  'YAHOO.dataSourceFactory.init.{name}.' . $function . ' = ';
+                $call =  'YAHOO.dataSourceFactory.{name}.' . $function . ' = ';
                  if ((is_string($arg) || is_int($arg)) && !is_bool($arg))
                 {
                     if (!empty($arg)) $call .= ((is_int($arg)) ?  $arg:'"' . $arg . '"');
