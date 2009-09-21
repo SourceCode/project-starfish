@@ -43,7 +43,6 @@ class stMysql
     
     public function genResult($origin='', $details='', $rowTotal='', $rows='', $result='', $type='') {
         $resultSet = '';
-        echo 'result-' . $type . '-';
         if ($type=='') $type='object';
         switch($type) {
             default:
@@ -164,7 +163,6 @@ class stMysql
     {
         if (empty($table) || !is_numeric($uid)) return false;
         $sql = "SELECT * FROM " . $table . " WHERE uid=" . $uid . " ORDER BY uid DESC LIMIT 1";
-        echo 'get';
         return $this->get($sql, $returnFormat);
     }
     
@@ -208,9 +206,9 @@ class stMysql
         $queryResult = '';
         if (!empty($table)) {
             $tmpSQL = "SELECT COUNT(*) FROM " . $table;
-                $queryResult = mysql_query($this->clean($tmpSQL));
-                $tableTotal = mysql_result($queryResult, 0, 0);
-                return $tableTotal;
+            $queryResult = mysql_query($this->clean($tmpSQL));
+            $tableTotal = mysql_result($queryResult, 0, 0);
+            return $tableTotal;
         } else {
             return false;
         }
