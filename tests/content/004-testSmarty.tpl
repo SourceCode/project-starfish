@@ -4,6 +4,6 @@
 <title>Smarty</title>
 </head>
 <body>
-Hello, {$name}!
+Hello, {$name}! 
 </body>
 </html>

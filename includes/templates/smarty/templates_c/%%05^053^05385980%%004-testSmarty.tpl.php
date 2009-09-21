@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.22, created on 2009-02-21 21:29:35
+<?php /* Smarty version 2.6.22, created on 2009-04-02 15:21:08
          compiled from 004-testSmarty.tpl */ ?>
 <html>
 <head>
@@ -6,6 +6,6 @@
 </head>
 <body>
 Hello, <?php echo $this->_tpl_vars['name']; ?>
-!
+! 
 </body>
 </html>

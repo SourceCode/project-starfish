@@ -1,0 +1,30 @@
+12:40:05 This is logging test 1
+12:40:05 test line 1
+12:40:05 test line 2
+12:40:05 test line 3
+12:40:50 This is logging test 1
+12:40:50 test line 1
+12:40:50 test line 2
+12:40:50 test line 3
+12:40:50 This is logging test 1
+12:40:50 test line 1
+12:40:50 test line 2
+12:40:50 test line 3
+14:09:41 This is logging test 1
+14:09:41 test line 1
+14:09:41 test line 2
+14:09:41 test line 3
+====================================================================
+14:17:14 EXCEPTION CAUGHT
+14:17:14 MSG: This was a test of an unhandled exception
+14:17:14 CODE: 0
+14:17:14 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+14:17:14 LINE: 35
+14:17:14 TRACE: #0 {main}
+====================================================================
+14:17:38 EXCEPTION CAUGHT
+14:17:38 MSG: This was a test of an unhandled exception
+14:17:38 CODE: 0
+14:17:38 FILE: C:\www\project-starfish\tests\003-testExceptions.php
+14:17:38 LINE: 35
+14:17:38 TRACE: #0 {main}

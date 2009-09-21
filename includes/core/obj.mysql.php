@@ -43,6 +43,8 @@ class stMysql
     
     public function genResult($origin='', $details='', $rowTotal='', $rows='', $result='', $type='') {
         $resultSet = '';
+        echo 'result-' . $type . '-';
+        if ($type=='') $type='object';
         switch($type) {
             default:
                 break;
@@ -82,8 +84,8 @@ class stMysql
         if (empty($sql)) return false;
         if (strpos(strtolower($sql), 'select')===false) return false;
         $queryResult = mysql_query($this->clean($sql), $this->dbCon);
-        
         if ($queryResult) {
+            echo '-results-';
             $queryTotal = @mysql_num_rows($queryResult);
             if ($queryTotal > 0) {
                 while($tmpData = mysql_fetch_assoc($queryResult)) {
@@ -161,29 +163,9 @@ class stMysql
     public function getRecordByUID($table, $uid, $returnFormat = null) 
     {
         if (empty($table) || !is_numeric($uid)) return false;
-        if (strpos(strtolower($sql), 'select')===false) return false;
-        $queryResult = mysql_query("SELECT * FROM " . $table . " WHERE uid=" . $uid . " ORDER BY uid DESC LIMIT 1", $this->dbCon);
-        if ($queryResult) {
-            $queryTotal = @mysql_num_rows($queryResult);
-            if ($queryTotal > 0) {
-                $tmpData = mysql_fetch_assoc($queryResult);
-                if ($returnFormat != null) {
-                    return $this->genResult('stMysql', 'select', $queryTotal, $tmpData, true, $returnFormat);
-                } elseif ($returnFormat == 'direct') {
-                    return mysql_fetch_object($queryResult);
-                } else {
-                    return $this->genResult('stMysql', 'select', $queryTotal, $tmpData, true);
-                }
-            } else {
-                if ($returnFormat != null) {
-                    return $this->genResult('stMysql', 'select', 0, '', false, $returnFormat);
-                } else {
-                    return $this->genResult('stMysql', 'select', 0, '', false);
-                }
-            }
-        } else {
-            return false;
-        }
+        $sql = "SELECT * FROM " . $table . " WHERE uid=" . $uid . " ORDER BY uid DESC LIMIT 1";
+        echo 'get';
+        return $this->get($sql, $returnFormat);
     }
     
     public function filteredInsert($sql) 

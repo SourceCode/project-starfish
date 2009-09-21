@@ -44,7 +44,7 @@ class stAutoCompleteFactory extends stYUIFactory
         $this->dataStore['settings']['namespace'] = $namespace;
         $this->dataStore['settings']['container'] = $namespace;
         $this->dataStore['defaults']['context'] = $context;
-        return $this;  
+        return $this;
     }
     
     public function render()
